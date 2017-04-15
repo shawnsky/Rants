@@ -1,0 +1,57 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+    <!-- 配置Handler(对于非注解方式的Handler)
+             这两种Handler由于使用了不同的映射器，所以不太一样（一个指定了name另一个却没有）-->
+    <!-- 配置Handler(对于注解方式的Handler)-->
+    <!--<bean class="com.xt.ssm.controller.ItemsController" />-->
+    <!-- 组件扫描-->
+    <context:component-scan base-package="com.xtlog.rants.controller"/>
+    <!--注解映射器 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <!--注解适配器 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <!-- <mvc:annotation-driven></mvc:annotation-driven> -->
+
+
+    <!-- 视图解析器-->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置jsp路径的前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- 配置jsp路径的后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--&lt;!&ndash;校验器&ndash;&gt;-->
+    <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+    <!--&lt;!&ndash; hibernate校验器&ndash;&gt;-->
+    <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />-->
+    <!--&lt;!&ndash; 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下的ValidationMessages.properties &ndash;&gt;-->
+    <!--<property name="validationMessageSource" ref="messageSource" />-->
+    <!--</bean>-->
+
+    <!--<bean id="messageSource"-->
+    <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+    <!--<property name="basenames">-->
+    <!--<list>-->
+    <!--<value>CustomValidationMessages</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="fileEncodings" value="utf-8" />-->
+    <!--<property name="cacheSeconds" value="120" />-->
+    <!--</bean>-->
+
+</beans>
