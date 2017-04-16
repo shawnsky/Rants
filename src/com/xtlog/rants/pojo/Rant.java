@@ -15,6 +15,8 @@ public class Rant {
 
     private Date rantDate;
 
+    private String rantAvatar;
+
     public Integer getRantId() {
         return rantId;
     }
@@ -61,5 +63,13 @@ public class Rant {
 
     public void setRantDate(Date rantDate) {
         this.rantDate = rantDate;
+    }
+
+    public String getRantAvatar() {
+        return rantAvatar;
+    }
+
+    public void setRantAvatar(String rantAvatar) {
+        this.rantAvatar = rantAvatar == null ? null : rantAvatar.trim();
     }
 }

@@ -2,6 +2,8 @@ package com.xtlog.rants.mapper;
 
 import com.xtlog.rants.pojo.Comment;
 
+import java.util.List;
+
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer commentId);
 
@@ -10,6 +12,8 @@ public interface CommentMapper {
     int insertSelective(Comment record);
 
     Comment selectByPrimaryKey(Integer commentId);
+
+    List<Comment> selectAllByRantId(Integer rantId);
 
     int updateByPrimaryKeySelective(Comment record);
 

@@ -1,28 +1,383 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xtlog.rants.mapper.RantMapper" >
-  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Rant" >
-    <id column="rant_id" property="rantId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="rant_hidden" property="rantHidden" jdbcType="INTEGER" />
-    <result column="rant_content" property="rantContent" jdbcType="VARCHAR" />
-    <result column="rant_value" property="rantValue" jdbcType="INTEGER" />
-    <result column="rant_date" property="rantDate" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtlog.rants.mapper.RantMapper">
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Rant">
+    <id column="rant_id" jdbcType="INTEGER" property="rantId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="rant_hidden" jdbcType="INTEGER" property="rantHidden" />
+    <result column="rant_content" jdbcType="VARCHAR" property="rantContent" />
+    <result column="rant_value" jdbcType="INTEGER" property="rantValue" />
+    <result column="rant_date" jdbcType="TIMESTAMP" property="rantDate" />
+    <result column="rant_avatar" jdbcType="VARCHAR" property="rantAvatar" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    rant_id, user_id, rant_hidden, rant_content, rant_value, rant_date
+  <sql id="Base_Column_List">
+    rant_id, user_id, rant_hidden, rant_content, rant_value, rant_date, rant_avatar
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rant
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from rant
     where rant_id = #{rantId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from rant
     where rant_id = #{rantId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xtlog.rants.pojo.Rant" >
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant (rant_id, user_id, rant_hidden, 
+      rant_content, rant_value, rant_date, 
+      rant_avatar)
+    values (#{rantId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantHidden,jdbcType=INTEGER}, 
+      #{rantContent,jdbcType=VARCHAR}, #{rantValue,jdbcType=INTEGER}, #{rantDate,jdbcType=TIMESTAMP}, 
+      #{rantAvatar,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        rant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden,
+      </if>
+      <if test="rantContent != null">
+        rant_content,
+      </if>
+      <if test="rantValue != null">
+        rant_value,
+      </if>
+      <if test="rantDate != null">
+        rant_date,
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        #{rantId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        rant_content = #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        rant_value = #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar = #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    set user_id = #{userId,jdbcType=INTEGER},
+      rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      rant_content = #{rantContent,jdbcType=VARCHAR},
+      rant_value = #{rantValue,jdbcType=INTEGER},
+      rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      rant_avatar = #{rantAvatar,jdbcType=VARCHAR}
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Rant">
+    <id column="rant_id" jdbcType="INTEGER" property="rantId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="rant_hidden" jdbcType="INTEGER" property="rantHidden" />
+    <result column="rant_content" jdbcType="VARCHAR" property="rantContent" />
+    <result column="rant_value" jdbcType="INTEGER" property="rantValue" />
+    <result column="rant_date" jdbcType="TIMESTAMP" property="rantDate" />
+    <result column="rant_avatar" jdbcType="VARCHAR" property="rantAvatar" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rant_id, user_id, rant_hidden, rant_content, rant_value, rant_date, rant_avatar
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rant
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant (rant_id, user_id, rant_hidden, 
+      rant_content, rant_value, rant_date, 
+      rant_avatar)
+    values (#{rantId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantHidden,jdbcType=INTEGER}, 
+      #{rantContent,jdbcType=VARCHAR}, #{rantValue,jdbcType=INTEGER}, #{rantDate,jdbcType=TIMESTAMP}, 
+      #{rantAvatar,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        rant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden,
+      </if>
+      <if test="rantContent != null">
+        rant_content,
+      </if>
+      <if test="rantValue != null">
+        rant_value,
+      </if>
+      <if test="rantDate != null">
+        rant_date,
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        #{rantId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        rant_content = #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        rant_value = #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar = #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    set user_id = #{userId,jdbcType=INTEGER},
+      rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      rant_content = #{rantContent,jdbcType=VARCHAR},
+      rant_value = #{rantValue,jdbcType=INTEGER},
+      rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      rant_avatar = #{rantAvatar,jdbcType=VARCHAR}
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Rant">
+    <id column="rant_id" jdbcType="INTEGER" property="rantId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="rant_hidden" jdbcType="INTEGER" property="rantHidden" />
+    <result column="rant_content" jdbcType="VARCHAR" property="rantContent" />
+    <result column="rant_value" jdbcType="INTEGER" property="rantValue" />
+    <result column="rant_date" jdbcType="TIMESTAMP" property="rantDate" />
+    <result column="rant_avatar" jdbcType="VARCHAR" property="rantAvatar" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rant_id, user_id, rant_hidden, rant_content, rant_value, rant_date, rant_avatar
+  </sql>
+  <select id="selectAll" resultType="BaseResultMap">
+    SELECT * FROM rant
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant (rant_id, user_id, rant_hidden, 
+      rant_content, rant_value, rant_date, 
+      rant_avatar)
+    values (#{rantId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantHidden,jdbcType=INTEGER}, 
+      #{rantContent,jdbcType=VARCHAR}, #{rantValue,jdbcType=INTEGER}, #{rantDate,jdbcType=TIMESTAMP}, 
+      #{rantAvatar,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.Rant">
+    insert into rant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        rant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden,
+      </if>
+      <if test="rantContent != null">
+        rant_content,
+      </if>
+      <if test="rantValue != null">
+        rant_value,
+      </if>
+      <if test="rantDate != null">
+        rant_date,
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
+        #{rantId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rantHidden != null">
+        rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      </if>
+      <if test="rantContent != null">
+        rant_content = #{rantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rantValue != null">
+        rant_value = #{rantValue,jdbcType=INTEGER},
+      </if>
+      <if test="rantDate != null">
+        rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rantAvatar != null">
+        rant_avatar = #{rantAvatar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Rant">
+    update rant
+    set user_id = #{userId,jdbcType=INTEGER},
+      rant_hidden = #{rantHidden,jdbcType=INTEGER},
+      rant_content = #{rantContent,jdbcType=VARCHAR},
+      rant_value = #{rantValue,jdbcType=INTEGER},
+      rant_date = #{rantDate,jdbcType=TIMESTAMP},
+      rant_avatar = #{rantAvatar,jdbcType=VARCHAR}
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Rant">
+    <id column="rant_id" jdbcType="INTEGER" property="rantId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="rant_hidden" jdbcType="INTEGER" property="rantHidden" />
+    <result column="rant_content" jdbcType="VARCHAR" property="rantContent" />
+    <result column="rant_value" jdbcType="INTEGER" property="rantValue" />
+    <result column="rant_date" jdbcType="TIMESTAMP" property="rantDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rant_id, user_id, rant_hidden, rant_content, rant_value, rant_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rant
+    where rant_id = #{rantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.Rant">
     insert into rant (rant_id, user_id, rant_hidden, 
       rant_content, rant_value, rant_date
       )
@@ -30,71 +385,71 @@
       #{rantContent,jdbcType=VARCHAR}, #{rantValue,jdbcType=INTEGER}, #{rantDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.Rant" >
+  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.Rant">
     insert into rant
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="rantId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
         rant_id,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="rantHidden != null" >
+      <if test="rantHidden != null">
         rant_hidden,
       </if>
-      <if test="rantContent != null" >
+      <if test="rantContent != null">
         rant_content,
       </if>
-      <if test="rantValue != null" >
+      <if test="rantValue != null">
         rant_value,
       </if>
-      <if test="rantDate != null" >
+      <if test="rantDate != null">
         rant_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="rantId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rantId != null">
         #{rantId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="rantHidden != null" >
+      <if test="rantHidden != null">
         #{rantHidden,jdbcType=INTEGER},
       </if>
-      <if test="rantContent != null" >
+      <if test="rantContent != null">
         #{rantContent,jdbcType=VARCHAR},
       </if>
-      <if test="rantValue != null" >
+      <if test="rantValue != null">
         #{rantValue,jdbcType=INTEGER},
       </if>
-      <if test="rantDate != null" >
+      <if test="rantDate != null">
         #{rantDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.Rant" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.Rant">
     update rant
-    <set >
-      <if test="userId != null" >
+    <set>
+      <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="rantHidden != null" >
+      <if test="rantHidden != null">
         rant_hidden = #{rantHidden,jdbcType=INTEGER},
       </if>
-      <if test="rantContent != null" >
+      <if test="rantContent != null">
         rant_content = #{rantContent,jdbcType=VARCHAR},
       </if>
-      <if test="rantValue != null" >
+      <if test="rantValue != null">
         rant_value = #{rantValue,jdbcType=INTEGER},
       </if>
-      <if test="rantDate != null" >
+      <if test="rantDate != null">
         rant_date = #{rantDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where rant_id = #{rantId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Rant" >
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Rant">
     update rant
     set user_id = #{userId,jdbcType=INTEGER},
       rant_hidden = #{rantHidden,jdbcType=INTEGER},

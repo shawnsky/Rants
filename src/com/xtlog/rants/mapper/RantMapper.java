@@ -2,6 +2,8 @@ package com.xtlog.rants.mapper;
 
 import com.xtlog.rants.pojo.Rant;
 
+import java.util.List;
+
 public interface RantMapper {
     int deleteByPrimaryKey(Integer rantId);
 
@@ -10,6 +12,8 @@ public interface RantMapper {
     int insertSelective(Rant record);
 
     Rant selectByPrimaryKey(Integer rantId);
+
+    List<Rant> selectAll();
 
     int updateByPrimaryKeySelective(Rant record);
 

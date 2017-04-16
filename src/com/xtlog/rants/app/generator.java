@@ -18,13 +18,13 @@ public class generator {
             List<String> warnings = new ArrayList<String>();
             boolean overwrite = true;
             //指定 逆向工程配置文件
-            File configFile = new File("config/generator.xml");
-            ConfigurationParser cp = new ConfigurationParser(warnings);
-            Configuration config = cp.parseConfiguration(configFile);
-            DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
-                    callback, warnings);
-            myBatisGenerator.generate(null);
+//            File configFile = new File("config/generator.xml");
+//            ConfigurationParser cp = new ConfigurationParser(warnings);
+//            Configuration config = cp.parseConfiguration(configFile);
+//            DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+//            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
+//                    callback, warnings);
+//            myBatisGenerator.generate(null);
         }
         catch (Exception e){
             e.printStackTrace();

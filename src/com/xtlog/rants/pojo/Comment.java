@@ -15,6 +15,8 @@ public class Comment {
 
     private Date commentDate;
 
+    private Integer rantId;
+
     public Integer getCommentId() {
         return commentId;
     }
@@ -61,5 +63,13 @@ public class Comment {
 
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
+    }
+
+    public Integer getRantId() {
+        return rantId;
+    }
+
+    public void setRantId(Integer rantId) {
+        this.rantId = rantId;
     }
 }

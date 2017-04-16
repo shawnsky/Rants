@@ -5,6 +5,8 @@ import com.xtlog.rants.pojo.Rant;
 import com.xtlog.rants.service.RantService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * Created by admin on 2017/4/16.
  */
@@ -32,6 +34,11 @@ public class RantServiceImpl implements RantService {
     @Override
     public Rant selectByPrimaryKey(Integer rantId) {
         return rantMapper.selectByPrimaryKey(rantId);
+    }
+
+    @Override
+    public List<Rant> selectAll() {
+        return rantMapper.selectAll();
     }
 
     @Override

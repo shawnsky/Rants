@@ -5,6 +5,8 @@ import com.xtlog.rants.pojo.Comment;
 import com.xtlog.rants.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * Created by admin on 2017/4/16.
  */
@@ -35,6 +37,12 @@ public class CommentServiceImpl implements CommentService {
     public Comment selectByPrimaryKey(Integer commentId) {
         return commentMapper.selectByPrimaryKey(commentId);
     }
+
+    @Override
+    public List<Comment> selectAllByRantId(Integer rantId) {
+        return commentMapper.selectAllByRantId(rantId);
+    }
+
 
     @Override
     public int updateByPrimaryKeySelective(Comment record) {

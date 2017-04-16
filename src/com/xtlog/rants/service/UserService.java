@@ -2,6 +2,8 @@ package com.xtlog.rants.service;
 
 import com.xtlog.rants.pojo.User;
 
+import java.util.List;
+
 /**
  * Created by admin on 2017/4/15.
  */
@@ -13,6 +15,8 @@ public interface UserService {
     int insertSelective(User record);
 
     User selectByPrimaryKey(Integer userId);
+
+    List<User> selectAll();
 
     int updateByPrimaryKeySelective(User record);
 

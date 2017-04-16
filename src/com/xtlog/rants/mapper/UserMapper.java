@@ -2,6 +2,8 @@ package com.xtlog.rants.mapper;
 
 import com.xtlog.rants.pojo.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -10,6 +12,8 @@ public interface UserMapper {
     int insertSelective(User record);
 
     User selectByPrimaryKey(Integer userId);
+
+    List<User> selectAll();
 
     int updateByPrimaryKeySelective(User record);
 

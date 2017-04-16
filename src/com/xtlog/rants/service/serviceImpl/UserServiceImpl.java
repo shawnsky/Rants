@@ -5,6 +5,8 @@ import com.xtlog.rants.pojo.User;
 import com.xtlog.rants.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * Created by admin on 2017/4/15.
  */
@@ -35,6 +37,12 @@ public class UserServiceImpl implements UserService {
     public User selectByPrimaryKey(Integer userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
+
+    @Override
+    public List<User> selectAll() {
+        return userMapper.selectAll();
+    }
+
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
