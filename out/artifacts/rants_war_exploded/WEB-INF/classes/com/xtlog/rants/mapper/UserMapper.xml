@@ -1,31 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xtlog.rants.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.User" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="user_role" property="userRole" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
-    <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
-    <result column="user_location" property="userLocation" jdbcType="VARCHAR" />
-    <result column="user_bio" property="userBio" jdbcType="VARCHAR" />
-    <result column="user_value" property="userValue" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtlog.rants.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_role" jdbcType="INTEGER" property="userRole" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="user_location" jdbcType="VARCHAR" property="userLocation" />
+    <result column="user_bio" jdbcType="VARCHAR" property="userBio" />
+    <result column="user_value" jdbcType="INTEGER" property="userValue" />
   </resultMap>
-  <sql id="Base_Column_List" >
+
+  <sql id="Base_Column_List">
     user_id, user_role, user_name, user_password, user_avatar, user_location, user_bio, 
     user_value
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user
+  </select>
+
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user
+    WHERE user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xtlog.rants.pojo.User" >
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.User">
     insert into user (user_id, user_role, user_name, 
       user_password, user_avatar, user_location, 
       user_bio, user_value)
@@ -33,89 +48,89 @@
       #{userPassword,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, #{userLocation,jdbcType=VARCHAR}, 
       #{userBio,jdbcType=VARCHAR}, #{userValue,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.User" >
+  <insert id="insertSelective" parameterType="com.xtlog.rants.pojo.User">
     insert into user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="userRole != null" >
+      <if test="userRole != null">
         user_role,
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         user_name,
       </if>
-      <if test="userPassword != null" >
+      <if test="userPassword != null">
         user_password,
       </if>
-      <if test="userAvatar != null" >
+      <if test="userAvatar != null">
         user_avatar,
       </if>
-      <if test="userLocation != null" >
+      <if test="userLocation != null">
         user_location,
       </if>
-      <if test="userBio != null" >
+      <if test="userBio != null">
         user_bio,
       </if>
-      <if test="userValue != null" >
+      <if test="userValue != null">
         user_value,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userRole != null" >
+      <if test="userRole != null">
         #{userRole,jdbcType=INTEGER},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null" >
+      <if test="userPassword != null">
         #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="userAvatar != null" >
+      <if test="userAvatar != null">
         #{userAvatar,jdbcType=VARCHAR},
       </if>
-      <if test="userLocation != null" >
+      <if test="userLocation != null">
         #{userLocation,jdbcType=VARCHAR},
       </if>
-      <if test="userBio != null" >
+      <if test="userBio != null">
         #{userBio,jdbcType=VARCHAR},
       </if>
-      <if test="userValue != null" >
+      <if test="userValue != null">
         #{userValue,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtlog.rants.pojo.User">
     update user
-    <set >
-      <if test="userRole != null" >
+    <set>
+      <if test="userRole != null">
         user_role = #{userRole,jdbcType=INTEGER},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null" >
+      <if test="userPassword != null">
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="userAvatar != null" >
+      <if test="userAvatar != null">
         user_avatar = #{userAvatar,jdbcType=VARCHAR},
       </if>
-      <if test="userLocation != null" >
+      <if test="userLocation != null">
         user_location = #{userLocation,jdbcType=VARCHAR},
       </if>
-      <if test="userBio != null" >
+      <if test="userBio != null">
         user_bio = #{userBio,jdbcType=VARCHAR},
       </if>
-      <if test="userValue != null" >
+      <if test="userValue != null">
         user_value = #{userValue,jdbcType=INTEGER},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.User" >
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.User">
     update user
     set user_role = #{userRole,jdbcType=INTEGER},
       user_name = #{userName,jdbcType=VARCHAR},
@@ -126,4 +141,6 @@
       user_value = #{userValue,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

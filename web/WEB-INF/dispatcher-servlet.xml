@@ -54,4 +54,13 @@
     <!--<property name="cacheSeconds" value="120" />-->
     <!--</bean>-->
 
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.xtlog.rants.intercepter.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

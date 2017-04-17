@@ -26,11 +26,13 @@
     <nav class="navbar navbar-static-top main-navbar" id="top" style="background-color: #F5F5F5;">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand brand-bootcdn" onclick="">Rants</a>
+                <a href="${pageContext.request.contextPath}/home.action" class="navbar-brand brand-bootcdn" onclick="">Rants</a>
             </div>
 
             <nav id="bs-navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" target="_blank">${username}</a></li>
+                    <li><a href="${pageContext.request.contextPath }/logoutSubmit.action" target="_blank">退出</a></li>
                     <li><a href="/api/" onclick="" target="_blank">API</a></li>
                     <li><a href="http://blog.bootcdn.cn/" onclick="" target="_blank">博客</a></li>
                     <li><a href="#about" onclick="">关于</a></li>
@@ -74,7 +76,7 @@
         </div>
 
         <c:forEach items="${rantList}" var="rant">
-        <a href="#" class="package list-group-item" target="_blank" onclick="">
+        <a href="${pageContext.request.contextPath }/rant.action?rantId=${rant.rantId}" class="package list-group-item" target="_blank" onclick="">
             <div class="row">
                 <div class="col-md-1">
                     <div style="width:50px; height:50px; border-radius:50%; overflow:hidden;">

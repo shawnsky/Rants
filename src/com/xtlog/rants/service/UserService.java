@@ -18,6 +18,8 @@ public interface UserService {
 
     List<User> selectAll();
 
+    User selectByUserName(String userName);
+
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
