@@ -22,24 +22,9 @@
 
 
 <header class="site-header" style="background-color: white;">
-    <!-- 顶部导航 -->
-    <nav class="navbar navbar-static-top main-navbar" id="top" style="background-color: #F5F5F5;">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="${pageContext.request.contextPath}/home.action" class="navbar-brand brand-bootcdn" onclick="">Rants</a>
-            </div>
 
-            <nav id="bs-navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" target="_blank">${username}</a></li>
-                    <li><a href="${pageContext.request.contextPath }/logoutSubmit.action" target="_blank">退出</a></li>
-                    <li><a href="/api/" onclick="" target="_blank">API</a></li>
-                    <li><a href="http://blog.bootcdn.cn/" onclick="" target="_blank">博客</a></li>
-                    <li><a href="#about" onclick="">关于</a></li>
-                </ul>
-            </nav>
-        </div>
-    </nav>
+    <%@include file="header.jsp"%><!--静态包含-->
+
     <!--巨幕 -->
     <div class="container jumbotron" style="background-color: white;">
         <div class="row">
@@ -64,19 +49,24 @@
         <!-- 发送 -->
         <div class="package list-group-item" style="background-color: #F5F5F5;">
             <div class="row" >
-
-                <div class="col-md-11">
-                    <input type="text" class="form-control search clearable" placeholder="说点有趣的..." autocomplete="off">
+                <form method="post" action="${pageContext.request.contextPath }/sendRant.action">
+                <div class="col-md-9">
+                    <input type="text" name="newRantContent" class="form-control search clearable" placeholder="说点有趣的..." autocomplete="off">
                 </div>
 
                 <div class="col-md-1">
-                    <button type="button" class="btn btn-default">发布</button>
+                    <input type="checkbox" name="newRantCheckBox" value="yes">匿名
                 </div>
+
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-default" value="快捷发布">
+                </div>
+                </form>
             </div>
         </div>
 
         <c:forEach items="${rantList}" var="rant">
-        <a href="${pageContext.request.contextPath }/rant.action?rantId=${rant.rantId}" class="package list-group-item" target="_blank" onclick="">
+        <a href="${pageContext.request.contextPath }/rant.action?rantId=${rant.rantId}" class="package list-group-item">
             <div class="row">
                 <div class="col-md-1">
                     <div style="width:50px; height:50px; border-radius:50%; overflow:hidden;">

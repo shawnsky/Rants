@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class RantController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping("/rant")
+    @RequestMapping(value = "/rant",method = {RequestMethod.GET})
     public String rant(Model model,Integer rantId){
         Rant rant = rantService.selectByPrimaryKey(rantId);
         User user = userService.selectByPrimaryKey(rant.getUserId());

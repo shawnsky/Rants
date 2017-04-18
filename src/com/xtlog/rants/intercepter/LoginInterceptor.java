@@ -15,8 +15,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         //获取请求的url
         String url = httpServletRequest.getRequestURI();
-        //判断url是不是公开地址(实际开发配置在配置文件中)
-        if(url.contains("login")||url.contains("home.action")){
+        //公开地址(实际开发配置在配置文件中)
+        if(url.contains("login.action") ||
+                url.contains("home.action")||
+                url.contains("loginSubmit.action")||
+                url.contains("rant.action")||
+                url.contains("logout.action")) {
             return true;
         }
 

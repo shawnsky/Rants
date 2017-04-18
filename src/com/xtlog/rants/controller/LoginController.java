@@ -37,9 +37,9 @@ public class LoginController {
         return "redirect:/home.action";
     }
 
-    @RequestMapping("/logoutSubmit")
+    @RequestMapping("/logout")
     public String logoutSubmit(HttpSession session){
         session.invalidate();
-        return "redirect:/login.action";
+        return "redirect:/home.action";
     }
 }

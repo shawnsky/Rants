@@ -51,4 +51,9 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+
+    <session-config>
+        <!--10分钟过期-->
+        <session-timeout>10</session-timeout>
+    </session-config>
 </web-app>
