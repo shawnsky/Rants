@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtlog.rants.mapper.StarMapper">
+  <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Star">
+    <id column="star_id" jdbcType="INTEGER" property="starId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="rant_id" jdbcType="INTEGER" property="rantId" />
+    <result column="star_value" jdbcType="INTEGER" property="starValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    star_id, user_id, rant_id, star_value
+  </sql>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM star
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByRantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM star
+    WHERE rant_id = #{rantId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from star
+    where star_id = #{starId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from star
+    where star_id = #{starId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xtlog.rants.pojo.Star">
+    insert into star (star_id, user_id, rant_id,
+      star_value)
+    values (#{starId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantId,jdbcType=INTEGER},
+      #{starValue,jdbcType=VARCHAR})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.xtlog.rants.pojo.Star">
+    update star
+    set user_id = #{userId,jdbcType=INTEGER},
+      rant_id = #{rantId,jdbcType=INTEGER},
+      star_value = #{starValue,jdbcType=VARCHAR}
+    where star_id = #{starId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

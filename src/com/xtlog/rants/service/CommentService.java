@@ -18,6 +18,8 @@ public interface CommentService {
 
     List<Comment> selectAllByRantId(Integer rantId);
 
+    List<Comment> selectAllByUserId(Integer userId);
+
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);

@@ -15,6 +15,8 @@ public interface RantMapper {
 
     List<Rant> selectAll();
 
+    List<Rant> selectByUserId(Integer userId);
+
     int updateByPrimaryKeySelective(Rant record);
 
     int updateByPrimaryKey(Rant record);

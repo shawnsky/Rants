@@ -43,6 +43,11 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.selectAllByRantId(rantId);
     }
 
+    @Override
+    public List<Comment> selectAllByUserId(Integer userId) {
+        return commentMapper.selectAllByUserId(userId);
+    }
+
 
     @Override
     public int updateByPrimaryKeySelective(Comment record) {

@@ -18,9 +18,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         //公开地址(实际开发配置在配置文件中)
         if(url.contains("login.action") ||
                 url.contains("home.action")||
-                url.contains("loginSubmit.action")||
                 url.contains("rant.action")||
-                url.contains("logout.action")) {
+                url.contains("logout.action")||
+                url.contains("register.action")||
+                url.contains("user.action")||
+                url.contains("allRant.action")) {
             return true;
         }
 
@@ -30,7 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(httpServletRequest,httpServletResponse);
+        httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(httpServletRequest,httpServletResponse);
         return false;
     }
 

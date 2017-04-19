@@ -42,6 +42,11 @@ public class RantServiceImpl implements RantService {
     }
 
     @Override
+    public List<Rant> selectByUserId(Integer userId) {
+        return rantMapper.selectByUserId(userId);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(Rant record) {
         rantMapper.updateByPrimaryKeySelective(record);
         return 0;

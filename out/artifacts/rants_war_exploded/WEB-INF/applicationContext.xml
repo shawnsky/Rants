@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/tx
-		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd " >
 
     <context:property-placeholder location="WEB-INF/db.properties" />
 
@@ -49,6 +49,7 @@
     <bean id="userService" class="com.xtlog.rants.service.serviceImpl.UserServiceImpl" />
     <bean id="rantService" class="com.xtlog.rants.service.serviceImpl.RantServiceImpl" />
     <bean id="commentService" class="com.xtlog.rants.service.serviceImpl.CommentServiceImpl" />
+    <bean id="starService" class="com.xtlog.rants.service.serviceImpl.StarServiceImpl" />
 
     <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

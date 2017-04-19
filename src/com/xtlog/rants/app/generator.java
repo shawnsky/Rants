@@ -1,5 +1,6 @@
 package com.xtlog.rants.app;
 
+import com.xtlog.rants.pojo.Rant;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -30,4 +31,5 @@ public class generator {
             e.printStackTrace();
         }
     }
+
 }

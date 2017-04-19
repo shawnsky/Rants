@@ -22,6 +22,13 @@
     WHERE rant_id = #{rantId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectAllByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM comment
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
