@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,5 +83,27 @@ public class UserController {
         else {
             return "userInfo";
         }
+    }
+
+    //修改信息
+    @RequestMapping(value = "/editInfo", method = {RequestMethod.POST})
+    public String editInfo(Integer userId, String location, String bio, RedirectAttributes attributes) throws UnsupportedEncodingException {
+        User user = userService.selectByPrimaryKey(userId);
+        user.setUserLocation(location);
+        user.setUserBio(bio);
+
+        attributes.addAttribute("userName", user.getUserName());
+
+        userService.updateByPrimaryKeySelective(user);
+        return "redirect:/user.action";
+    }
+    //修改密码
+    @RequestMapping(value = "/editPwd", method = {RequestMethod.POST})
+    public String editPwd(Integer userId, String password, RedirectAttributes attributes){
+        User user = userService.selectByPrimaryKey(userId);
+        user.setUserPassword(password);
+        attributes.addAttribute("userName", user.getUserName());
+        userService.updateByPrimaryKeySelective(user);
+        return "redirect:/user.action";
     }
 }

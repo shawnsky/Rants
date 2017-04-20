@@ -28,7 +28,7 @@
     <%@include file="header.jsp"%><!--静态包含-->
 </header>
 
-<div class="col-lg-6 col-lg-offset-3" style="background-color: #e2e2e2">
+<div class="col-lg-6 col-lg-offset-3">
     <%--主要--%>
     <div class="panel panel-default">
         <div class="panel-heading">全部的Rant</div>

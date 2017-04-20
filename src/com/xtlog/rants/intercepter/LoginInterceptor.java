@@ -22,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 url.contains("logout.action")||
                 url.contains("register.action")||
                 url.contains("user.action")||
+                url.contains("/api/")||
                 url.contains("allRant.action")) {
             return true;
         }

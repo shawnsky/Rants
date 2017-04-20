@@ -17,7 +17,7 @@
 
                 <br>
                 <h5 style="text-align: center;"><strong>Rant</strong></h5>
-                <h5 style="text-align: center;"><strong>吐槽 / 囧事 / 欣喜</strong></h5>
+                <h5 style="text-align: center;"><strong>吐槽 / 囧事 / 屁话</strong></h5>
                 <br>
                 <h5 style="color: gray;text-align: center;"><strong>Bootstrap + Spring MVC + Spring + MyBatis</strong></h5>
                 <br>

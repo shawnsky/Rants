@@ -39,7 +39,8 @@
                       <h5>${user.userBio}</h5>
                       <h5><span class="glyphicon glyphicon-grain"></span> 声望 ${user.userValue}</h5>
                       <h5><span class="glyphicon glyphicon-map-marker"></span> ${user.userLocation} </h5>
-                      <button type="button" class="btn btn-default">编辑资料</button>
+                      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editInfo">编辑资料</button>
+
                   </div>
               </div>
 
@@ -133,6 +134,73 @@
 
 
 </div>
+</div>
+
+<%--修改信息模态框--%>
+<div id="editInfo" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">编辑资料</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-group" action="${pageContext.request.contextPath}/editInfo.action" method="post">
+                    <div class="form-group">
+                        <label for="">地区</label>
+                        <input name="location" class="form-control" type="text" value="${user.userLocation}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">简介</label>
+                        <input name="bio" class="form-control" type="text" value="${user.userBio}">
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit">修改</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                    <input type="hidden" name="userId" value="${user.userId}">
+                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#editPwd">修改密码</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%--修改密码模态框--%>
+<div id="editPwd" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">修改密码</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-group" action="${pageContext.request.contextPath}/editPwd.action" method="post">
+                    <div class="form-group">
+                        <label for="">新密码</label>
+                        <input name="password" class="form-control" type="password" >
+                    </div>
+                    <div class="form-group">
+                        <label for="">再次输入</label>
+                        <input name="passwordAgain" class="form-control" type="password" >
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit">修改</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                    <input type="hidden" name="userId" value="${user.userId}">
+                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#editInfo">修改信息</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
