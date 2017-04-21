@@ -79,7 +79,7 @@ public class HomeController {
 
         if(newRantCheckBox != null){//匿名
             rant.setRantHidden(1);
-            rant.setRantAvatar("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492506012487&di=1e73fe9d3757a6669ac7a026ea0e1455&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D57e5bea30ffa513d51ff64da085d79cd%2F43a7d933c895d1436b21cf5c74f082025aaf077d.jpg");
+            rant.setRantAvatar("http://i4.buimg.com/567571/846a641dcc87882b.png");
         }
         else{//公开
             rant.setRantHidden(0);
