@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="rants:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b4052ea6-afb0-4ec4-b665-4a27623b9bc7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java" afterPath="$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xtlog/rants/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/com/xtlog/rants/controller/HomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xtlog/rants/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/com/xtlog/rants/controller/LoginController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/header.jsp" afterPath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/header.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/home.jsp" afterPath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/rantDetail.jsp" afterPath="$PROJECT_DIR$/out/artifacts/rants_war_exploded/WEB-INF/jsp/rantDetail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" />
     </list>
     <ignored path="rants.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,14 +36,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="APIController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="APIController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.948856">
+            <state vertical-scroll-proportion="0.0">
               <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/db.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/home.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-49.285713">
+              <caret line="191" column="6" selection-start-line="191" selection-start-column="6" selection-end-line="191" selection-end-column="6" />
+              <folding>
+                <element signature="n#script#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#1289#1335#0#HTML" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="38.17857">
+              <caret line="21" column="83" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rantDetail.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.7774193">
+              <caret line="118" column="112" selection-start-line="118" selection-start-column="112" selection-end-line="118" selection-end-column="112" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -45,9 +106,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,9 +116,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="57" column="9" selection-start-line="50" selection-start-column="8" selection-end-line="57" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -105,7 +162,6 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/web/WEB-INF/jsp/login.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/db.properties" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/mapper/RantMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/service/RantService.java" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/service/serviceImpl/RantServiceImpl.java" />
@@ -122,10 +178,7 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/controller/RantController.java" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/mapper/StarMapper.xml" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/jsp/userInfo.jsp" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/jsp/myInfo.jsp" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/controller/UserController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/jsp/footer.jsp" />
@@ -134,6 +187,10 @@
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/controller/LoginController.java" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/controller/HomeController.java" />
         <option value="$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/db.properties" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" />
       </list>
     </option>
   </component>
@@ -157,10 +214,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="380" />
-    <option name="y" value="118" />
-    <option name="width" value="1158" />
-    <option name="height" value="882" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -187,8 +244,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -239,9 +294,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rants" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Rants" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -249,10 +328,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="A:\nodejs\node.exe" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/JavaProject/Rants/src/com/xtlog/rants/service/serviceImpl/UserServiceImpl.java&#10;log4j&#9;PSI&#9;JAVA://org.apache.ibatis.logging.log4j2.Log4j2AbstractLoggerImpl" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RantsMaven" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
@@ -759,6 +838,8 @@
     </configuration>
     <configuration default="false" name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.75" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
         <artifact name="rants:war exploded">
           <settings>
@@ -831,9 +912,9 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.generator" />
-      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.home.action" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.index.action" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.home.action" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.action" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
       <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
     </list>
     <recent_temporary>
@@ -867,6 +948,7 @@
       <workItem from="1492574743848" duration="29349000" />
       <workItem from="1492671776730" duration="11859000" />
       <workItem from="1492694116784" duration="22000" />
+      <workItem from="1492759507344" duration="7371000" />
     </task>
     <servers />
   </component>
@@ -897,24 +979,26 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103279000" />
+    <option name="totallyTimeSpent" value="110650000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="380" y="118" width="1158" height="882" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28541225" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883435" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2843552" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25481611" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15104167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -922,14 +1006,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32642487" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32642487" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28541225" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35103628" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883435" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1019,13 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.11632653">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/pojo/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1087,13 +1162,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/db.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="85" />
         </state>
       </provider>
     </entry>
@@ -1203,13 +1271,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6785714">
-          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/userInfo.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="19.0">
@@ -1224,24 +1285,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.857142">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="106" column="39" selection-start-line="106" selection-start-column="39" selection-end-line="106" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="119.17857">
-          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1298,7 +1345,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.948856">
+        <state vertical-scroll-proportion="0.0">
           <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1310,9 +1357,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1320,9 +1365,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="9" selection-start-line="50" selection-start-column="8" selection-end-line="57" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/db.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-49.285713">
+          <caret line="191" column="6" selection-start-line="191" selection-start-column="6" selection-end-line="191" selection-end-column="6" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#script#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#1289#1335#0#HTML" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="38.17857">
+          <caret line="21" column="83" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.7774193">
+          <caret line="118" column="112" selection-start-line="118" selection-start-column="112" selection-end-line="118" selection-end-column="112" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1386,6 +1472,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

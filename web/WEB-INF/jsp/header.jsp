@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- 顶部导航 -->
 
-<nav class="navbar navbar-static-top main-navbar navbar-inverse" id="top" >
+<nav class="navbar navbar-static-top main-navbar navbar-inverse" id="top"  >
     <div class="container">
         <div class="navbar-header">
             <a href="${pageContext.request.contextPath}/home.action" class="navbar-brand brand-bootcdn" onclick="">Rants</a>
@@ -19,7 +19,7 @@
                 <%--已登陆--%>
                 <c:if test="${sessionScope.username != null}">
                     <li><a href="${pageContext.request.contextPath}/user.action?userName=${sessionScope.username}">${sessionScope.username}</a></li>
-                    <li><a href="${pageContext.request.contextPath }/logout.action" target="_blank">退出</a></li>
+                    <li><a href="${pageContext.request.contextPath }/logout.action">退出</a></li>
                 </c:if>
 
                     <%--未登录--%>

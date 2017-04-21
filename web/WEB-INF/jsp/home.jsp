@@ -34,39 +34,53 @@
             }
             document.getElementById("newRantForm").submit();
         }
+
+//        function getDateDiff(dateTimeStamp){
+//            var minute = 1000 * 60;
+//            var hour = minute * 60;
+//            var day = hour * 24;
+//            var halfamonth = day * 15;
+//            var month = day * 30;
+//            var now = new Date().getTime();
+//            var diffValue = now - dateTimeStamp;
+//            if(diffValue < 0){return;}
+//            var monthC =diffValue/month;
+//            var weekC =diffValue/(7*day);
+//            var dayC =diffValue/day;
+//            var hourC =diffValue/hour;
+//            var minC =diffValue/minute;
+//            if(monthC>=1){
+//                result="" + parseInt(monthC) + "月前";
+//            }
+//            else if(weekC>=1){
+//                result="" + parseInt(weekC) + "周前";
+//            }
+//            else if(dayC>=1){
+//                result=""+ parseInt(dayC) +"天前";
+//            }
+//            else if(hourC>=1){
+//                result=""+ parseInt(hourC) +"小时前";
+//            }
+//            else if(minC>=1){
+//                result=""+ parseInt(minC) +"分钟前";
+//            }else
+//                result="刚刚";
+//            return result;
+//        }
+
     </script>
 </head>
 <body style="background-color: white">
 
 
 <header class="site-header" style="background-color: white;">
-
     <%@include file="header.jsp"%><!--静态包含-->
-
-    <!--巨幕 -->
-    <%--<div class="container jumbotron" style="background-color: white;">--%>
-        <%--<div class="row">--%>
-            <%--<div class="col-xs-12">--%>
-                <%--<h1>rant = new fml();</h1>--%>
-                <%--<p>忘了我就没有痛，将往事留在风中<br><span class="package-amount">我是不是该安静地走开</span></p>--%>
-
-                <%--<div class="col-lg-12">--%>
-                    <%--<div class="input-group">--%>
-                        <%--<input type="text" class="form-control search clearable" placeholder="搜索" autocomplete="off">--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
 </header>
 
 
 <div class="container">
     <div class="row">
-
-        <%--rant列表和发送--%>
         <ul class="col-lg-9 list-group">
-
             <!-- 发送 -->
             <div class="package list-group-item" style="background-color: #F5F5F5;padding-top: 0;">
                 <div class="row" >
@@ -76,16 +90,12 @@
                         <div class="col-md-9" style="padding: 0">
                             <input type="text" id="txtContent" name="newRantContent" class="form-control search clearable" placeholder="说点有趣的..." autocomplete="off">
                         </div>
-
                         <div class="col-md-2">
 
-                            <%--<input type="checkbox" name="newRantCheckBox" value="yes">匿名--%>
-                            <%--<button type="button"  class="btn btn-default" onclick="PushNewRant();">快捷发布</button>--%>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-info" style="background-color: white;color: black;" onclick="PushNewRant();">快捷发送</button>
                                     <button style="height: 34px;" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
-
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li style="padding: 5px;"><input type="checkbox" name="newRantCheckBox" value="yes">匿名发送</li>
@@ -110,7 +120,7 @@
                             <div class="col-md-11">
                                 <span class="badge" style="float: right;">${rantId2ComCntMap[rant.rantId]}</span>
                                 <h4 class="package-description">${rant.rantContent}</h4>
-                                <c:if test="${rant.rantHidden==0}"><p class="package-name"><strong>${userId2NameMap[rant.userId]}</strong> 发表于 ${rant.rantDate}</p></c:if>
+                                <c:if test="${rant.rantHidden==0}"><p class="package-name"><strong>${userId2NameMap[rant.userId]}</strong> 发表于 javascript:toHome();${rant.rantDate}</p></c:if>
                                 <c:if test="${rant.rantHidden==1}"><p class="package-name"><strong>神秘人</strong> 发表于 ${rant.rantDate}</p></c:if>
                             </div>
                         </div>

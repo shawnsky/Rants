@@ -116,7 +116,7 @@
             <div class="panel-body">
                 <ul class="list-group">
                     <c:if test="${commentList.size()==0}">
-                        <h3 style="color: gray;">还没有评论哦，抢沙发</h3>
+                        <div class=" alert alert-info" role="alert">还没有评论哦 (●ˇ∀ˇ●)，快抢沙发！理性发言，互联网时代，要自由，更要遵守秩序！！！</div>
                     </c:if>
 
                     <div class="row">
