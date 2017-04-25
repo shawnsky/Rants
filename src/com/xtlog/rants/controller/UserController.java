@@ -48,6 +48,12 @@ public class UserController {
             rantId2ComCntMap.put(rant.getRantId(),commentService.selectAllByRantId(rant.getRantId()).size());//评论数映射
         }
 
+        //计算声望
+        int tot=0;
+        for(Rant rant:rantList){
+            tot+=rant.getRantValue();
+        }
+        user.setUserValue(tot);
 
         //获取评论列表
         List<Comment> commentList = commentService.selectAllByUserId(user.getUserId());
