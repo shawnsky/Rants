@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtlog.rants.mapper.TokenMapper">
+
+    <resultMap id="BaseResultMap" type="com.xtlog.rants.pojo.Token">
+        <id column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_token" jdbcType="VARCHAR" property="userToken" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id, user_token
+    </sql>
+
+    <select id="queryIdByToken" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        user_id
+        FROM token
+        WHERE user_token = #{userToken,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryTokenById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT
+        user_token
+        FROM token
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from token
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="create" parameterType="com.xtlog.rants.pojo.Token">
+        insert into token (user_id, user_token)
+        values (#{userId,jdbcType=INTEGER}, #{userToken,jdbcType=VARCHAR})
+    </insert>
+
+
+
+    <update id="update" parameterType="com.xtlog.rants.pojo.Token">
+        update token
+        set user_id = #{userId,jdbcType=INTEGER},
+        user_token = #{userToken,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

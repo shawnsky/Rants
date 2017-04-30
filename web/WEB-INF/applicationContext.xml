@@ -50,6 +50,7 @@
     <bean id="rantService" class="com.xtlog.rants.service.serviceImpl.RantServiceImpl" />
     <bean id="commentService" class="com.xtlog.rants.service.serviceImpl.CommentServiceImpl" />
     <bean id="starService" class="com.xtlog.rants.service.serviceImpl.StarServiceImpl" />
+    <bean id="tokenService" class="com.xtlog.rants.service.serviceImpl.TokenServiceImpl"/>
 
     <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
