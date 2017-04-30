@@ -1,18 +1,24 @@
 package com.xtlog.rants.controller;
 
 import com.google.gson.Gson;
+import com.sun.deploy.net.HttpResponse;
 import com.xtlog.rants.pojo.Rant;
+import com.xtlog.rants.pojo.Token;
 import com.xtlog.rants.pojo.User;
-import com.xtlog.rants.service.CommentService;
-import com.xtlog.rants.service.RantService;
-import com.xtlog.rants.service.StarService;
-import com.xtlog.rants.service.UserService;
+import com.xtlog.rants.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +37,8 @@ public class APIController {
     private UserService userService;
     @Autowired
     private StarService starService;
+    @Autowired
+    private TokenService tokenService;
 
     private static final String tem1 = "<html>\n" +
             "<head>\n" +
@@ -99,6 +107,94 @@ public class APIController {
         }
         String json = gson.toJson(starRantList);
         response.getWriter().print(tem1+json+tem2);
+    }
+
+
+
+    @RequestMapping(value = "/reg",method = {RequestMethod.POST})
+    public void reg(HttpServletRequest request, HttpServletResponse response)throws IOException{
+
+        //默认头像组
+        List<String> defaultAvatarList = new ArrayList<>();
+        defaultAvatarList.add("http://i2.muimg.com/567571/558499d1ed36df1e.jpg");//orange catty
+        defaultAvatarList.add("http://i2.muimg.com/567571/852c22977e6002d0.jpg");//blue catty
+        defaultAvatarList.add("http://i2.muimg.com/567571/e050cd026ff561dd.jpg");//red catty
+
+
+        User user = new User();
+        user.setUserName(request.getParameter("username"));
+        user.setUserPassword(request.getParameter("password"));
+
+        //默认头像
+        user.setUserAvatar(defaultAvatarList.get(((int)(Math.random()*10))%3));
+
+        //设置角色
+        user.setUserRole(3);
+        user.setUserValue(0);
+        user.setUserBio("什么也没留下");
+        user.setUserLocation("未知");
+
+        //校验
+        User v = userService.selectByUserName(user.getUserName());
+        if(v==null){
+            userService.insert(user);
+            int id = userService.selectByUserName(user.getUserName()).getUserId();
+            String deviceMd5 = request.getParameter("device");
+            String date = new Date().toString();
+            String tokenString = deviceMd5+md5(date);
+            Token token = new Token();
+            token.setUserId(id);
+            token.setUserToken(tokenString);
+            tokenService.create(token);
+
+            response.getWriter().print(tokenString);
+
+        }
+        else{//用户名已存在
+            response.getWriter().print("exist");
+        }
+    }
+
+    @RequestMapping(value = "/login",method = {RequestMethod.POST})
+    public void login(HttpServletRequest request, HttpServletResponse response)throws IOException {
+        String username =  request.getParameter("username");
+        String password = request.getParameter("password");
+
+        User user = userService.selectByUserName(username);
+        //密码正确
+        if(password.equals(user.getUserPassword())){
+            String deviceMd5 = request.getParameter("device");
+            String date = new Date().toString();
+            String tokenString = deviceMd5+md5(date);
+            Token token = new Token();
+            token.setUserId(user.getUserId());
+            token.setUserToken(tokenString);
+            tokenService.create(token);
+            response.getWriter().print(tokenString);
+        }
+        else{
+            response.getWriter().print("wrong");
+        }
+
+
+    }
+
+
+    public static String md5(String str){
+        byte[] hash;
+        try {
+            hash = MessageDigest.getInstance("MD5").digest(str.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Huh, MD5 should be supported?", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Huh, UTF-8 should be supported?", e);
+        }
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10) hex.append("0");
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+        return hex.toString();
     }
 
 
