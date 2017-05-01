@@ -23,6 +23,11 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    public int deleteByToken(String token) {
+        return tokenMapper.deleteByToken(token);
+    }
+
+    @Override
     public int update(Token record) {
         return tokenMapper.update(record);
     }
@@ -33,7 +38,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public int queryTokenById(Integer id) {
+    public String queryTokenById(Integer id) {
         return tokenMapper.queryTokenById(id);
     }
 }

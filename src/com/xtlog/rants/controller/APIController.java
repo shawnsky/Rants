@@ -162,10 +162,14 @@ public class APIController {
 
         User user = userService.selectByUserName(username);
         //密码正确
-        if(password.equals(user.getUserPassword())){
+        if(user!=null && password.equals(user.getUserPassword())){
             String deviceMd5 = request.getParameter("device");
             String date = new Date().toString();
             String tokenString = deviceMd5+md5(date);
+
+            //删除之前的令牌
+            tokenService.deleteById(user.getUserId());
+            //新增令牌
             Token token = new Token();
             token.setUserId(user.getUserId());
             token.setUserToken(tokenString);
@@ -177,6 +181,13 @@ public class APIController {
         }
 
 
+    }
+
+
+    @RequestMapping(value = "/logout",method = {RequestMethod.POST})
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String tokenString = request.getParameter("token");
+        tokenService.deleteByToken(tokenString);
     }
 
 

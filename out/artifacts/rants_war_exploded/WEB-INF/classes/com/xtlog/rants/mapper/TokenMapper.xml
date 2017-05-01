@@ -30,6 +30,11 @@
         where user_id = #{userId,jdbcType=INTEGER}
     </delete>
 
+    <delete id="deleteByToken" parameterType="java.lang.String">
+        delete from token
+        where user_token = #{userToken,jdbcType=VARCHAR}
+    </delete>
+
     <insert id="create" parameterType="com.xtlog.rants.pojo.Token">
         insert into token (user_id, user_token)
         values (#{userId,jdbcType=INTEGER}, #{userToken,jdbcType=VARCHAR})
