@@ -2,10 +2,13 @@ package com.xtlog.rants.controller;
 
 import com.google.gson.Gson;
 import com.sun.deploy.net.HttpResponse;
+import com.xtlog.rants.pojo.Comment;
 import com.xtlog.rants.pojo.Rant;
 import com.xtlog.rants.pojo.Token;
 import com.xtlog.rants.pojo.User;
 import com.xtlog.rants.service.*;
+import com.xtlog.rants.wrapper.RantItem;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -40,23 +44,32 @@ public class APIController {
     @Autowired
     private TokenService tokenService;
 
-    private static final String tem1 = "<html>\n" +
-            "<head>\n" +
-            "    <meta charset=\"utf-8\">\n" +
-            "    <title>JSON</title>\n" +
-            "</head>\n" +
-            "<body>";
-    private static final String tem2 = "</body>\n" +
-            "</html>";
+    private static final String tem1 = "<html><head><meta charset=\"utf-8\"></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
+    private static final String tem2 = "</pre></body></html>";
 
     @RequestMapping("/allRants")
     public void allRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
         List<Rant> rantList = rantService.selectAll();
-        String json = gson.toJson(rantList);
-        response.getWriter().print(tem1+json+tem2);
+        List<RantItem> rantItemList = new ArrayList<>();
+        for(Rant rant:rantList){
+            RantItem rantItem = new RantItem();
+            BeanUtils.copyProperties(rant, rantItem);
+            String username = userService.selectByPrimaryKey(rant.getUserId()).getUserName();
+            List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
+            rantItem.setUserName(username);
+            if(commentList==null) rantItem.setCommentsNum(0);
+            else rantItem.setCommentsNum(commentList.size());
+            rantItemList.add(rantItem);
+        }
+        Collections.reverse(rantItemList);//反向，新的靠前。
+        String json = gson.toJson(rantItemList);
+//        json = json.substring(1,json.length()-1);
+//        response.getWriter().print(tem1+json+tem2);
+        response.getWriter().print(json);
     }
 
+    // TODO: 2017/5/1 可能需要包装  
     @RequestMapping("/allUsers")
     public void allUsers(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
@@ -65,6 +78,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
+    // TODO: 2017/5/1 可能需要包装 
     @RequestMapping("/rant")
     public void rant(HttpServletResponse response, Integer userId) throws IOException {
         Gson gson = new Gson();
@@ -73,6 +87,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
+    // TODO: 2017/5/1 可能需要包装 
     @RequestMapping("/recentHotRants")
     public void recentHotRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
@@ -93,6 +108,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
+    // TODO: 2017/5/1 可能需要包装 
     @RequestMapping("/valuableRants")
     public void valuableRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
