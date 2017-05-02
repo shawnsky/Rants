@@ -82,6 +82,7 @@ public class RantController {
         comment.setCommentHidden(0);
         comment.setRantId(rantId);
         comment.setCommentValue(0);
+        comment.setCommentRead(0);
         commentService.insert(comment);
         return "redirect:/rant.action?rantId="+rantId;
     }
@@ -117,6 +118,7 @@ public class RantController {
         star.setRantId(rantId);
         star.setUserId(userId);
         star.setStarValue(1);
+        star.setStarRead(0);
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()+1);
@@ -156,6 +158,7 @@ public class RantController {
         star.setRantId(rantId);
         star.setUserId(userId);
         star.setStarValue(-1);
+        star.setStarRead(0);
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()-1);

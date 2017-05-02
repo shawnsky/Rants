@@ -17,6 +17,16 @@ public class Comment {
 
     private Integer rantId;
 
+    private Integer commentRead;
+
+    public Integer getCommentRead() {
+        return commentRead;
+    }
+
+    public void setCommentRead(Integer commentRead) {
+        this.commentRead = commentRead;
+    }
+
     public Integer getCommentId() {
         return commentId;
     }

@@ -47,6 +47,7 @@ public class APIController {
     private static final String tem1 = "<html><head><meta charset=\"utf-8\"></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
     private static final String tem2 = "</pre></body></html>";
 
+
     @RequestMapping("/allRants")
     public void allRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();

@@ -12,6 +12,16 @@ public class Star {
 
     private Integer starValue;
 
+    private Integer starRead;
+
+    public Integer getStarRead() {
+        return starRead;
+    }
+
+    public void setStarRead(Integer starRead) {
+        this.starRead = starRead;
+    }
+
     public Integer getStarId() {
         return starId;
     }

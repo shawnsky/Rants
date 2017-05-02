@@ -120,7 +120,7 @@
                             <div class="col-md-11">
                                 <span class="badge" style="float: right;">${rantId2ComCntMap[rant.rantId]}</span>
                                 <h4 class="package-description">${rant.rantContent}</h4>
-                                <c:if test="${rant.rantHidden==0}"><p class="package-name"><strong>${userId2NameMap[rant.userId]}</strong> 发表于 javascript:toHome();${rant.rantDate}</p></c:if>
+                                <c:if test="${rant.rantHidden==0}"><p class="package-name"><strong>${userId2NameMap[rant.userId]}</strong> 发表于 ${rant.rantDate}</p></c:if>
                                 <c:if test="${rant.rantHidden==1}"><p class="package-name"><strong>神秘人</strong> 发表于 ${rant.rantDate}</p></c:if>
                             </div>
                         </div>
