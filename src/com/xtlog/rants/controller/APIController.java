@@ -7,6 +7,8 @@ import com.xtlog.rants.pojo.Rant;
 import com.xtlog.rants.pojo.Token;
 import com.xtlog.rants.pojo.User;
 import com.xtlog.rants.service.*;
+import com.xtlog.rants.wrapper.CommentItem;
+import com.xtlog.rants.wrapper.DetailItem;
 import com.xtlog.rants.wrapper.RantItem;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class APIController {
     private static final String tem2 = "</pre></body></html>";
 
 
-    @RequestMapping("/allRants")
+    @RequestMapping(value = "/allRants", method = {RequestMethod.GET})
     public void allRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
         List<Rant> rantList = rantService.selectAll();
@@ -65,9 +67,30 @@ public class APIController {
         }
         Collections.reverse(rantItemList);//反向，新的靠前。
         String json = gson.toJson(rantItemList);
-//        json = json.substring(1,json.length()-1);
-//        response.getWriter().print(tem1+json+tem2);
         response.getWriter().print(json);
+    }
+
+    @RequestMapping(value = "/rant",method = {RequestMethod.GET})
+    public void rant(HttpServletRequest request, HttpServletResponse response)throws IOException{
+        int rantId = Integer.valueOf(request.getParameter("rantId"));
+        Rant rant = rantService.selectByPrimaryKey(rantId);
+        DetailItem detailItem = new DetailItem();
+        BeanUtils.copyProperties(rant, detailItem);
+        detailItem.setUserName(userService.selectByPrimaryKey(rant.getUserId()).getUserName());
+        List<CommentItem> commentItemList =  new ArrayList<>();
+        List<Comment> commentList = commentService.selectAllByRantId(rantId);
+        for(Comment comment:commentList){
+            CommentItem commentItem = new CommentItem();
+            BeanUtils.copyProperties(comment, commentItem);
+            commentItem.setUserName(userService.selectByPrimaryKey(comment.getUserId()).getUserName());
+            commentItem.setUserAvatar(userService.selectByPrimaryKey(comment.getUserId()).getUserAvatar());
+            commentItemList.add(commentItem);
+        }
+        detailItem.setCommentList(commentItemList);
+
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(detailItem));
+
     }
 
     // TODO: 2017/5/1 可能需要包装  
