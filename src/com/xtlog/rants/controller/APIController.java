@@ -93,6 +93,38 @@ public class APIController {
 
     }
 
+    @RequestMapping(value = "/postrant", method = {RequestMethod.POST})
+    public void postrant(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String token = request.getParameter("token");
+        String content = request.getParameter("content");
+        String isHidden = request.getParameter("isHidden");
+
+        int userId = -1;
+        userId = tokenService.queryIdByToken(token);
+        if(userId==-1){//没有查询到用户
+            response.getWriter().print("0");
+        }
+        else{//找到用户
+            User user = userService.selectByPrimaryKey(userId);
+            Rant rant = new Rant();
+            if(isHidden.equals("1")){//匿名
+                rant.setRantHidden(1);
+                rant.setRantAvatar("http://i4.buimg.com/567571/846a641dcc87882b.png");
+            }
+            else{//公开
+                rant.setRantHidden(0);
+                rant.setRantAvatar(user.getUserAvatar());
+            }
+            rant.setRantContent(content);
+            rant.setRantDate(new Date());
+            rant.setRantValue(0);
+            rant.setUserId(user.getUserId());
+            rantService.insert(rant);
+            response.getWriter().print("1");
+        }
+
+    }
+
     // TODO: 2017/5/1 可能需要包装  
     @RequestMapping("/allUsers")
     public void allUsers(HttpServletResponse response) throws IOException {
