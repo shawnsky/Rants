@@ -27,7 +27,19 @@ public class DetailItem {
     //new
     private String userName;
 
+    private Integer thumbValue;
+
     private List<CommentItem> commentList;
+
+
+
+    public Integer getThumbValue() {
+        return thumbValue;
+    }
+
+    public void setThumbValue(Integer thumbValue) {
+        this.thumbValue = thumbValue;
+    }
 
     public Integer getRantId() {
         return rantId;

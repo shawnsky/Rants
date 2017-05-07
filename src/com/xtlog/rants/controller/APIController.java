@@ -2,10 +2,7 @@ package com.xtlog.rants.controller;
 
 import com.google.gson.Gson;
 import com.sun.deploy.net.HttpResponse;
-import com.xtlog.rants.pojo.Comment;
-import com.xtlog.rants.pojo.Rant;
-import com.xtlog.rants.pojo.Token;
-import com.xtlog.rants.pojo.User;
+import com.xtlog.rants.pojo.*;
 import com.xtlog.rants.service.*;
 import com.xtlog.rants.wrapper.CommentItem;
 import com.xtlog.rants.wrapper.DetailItem;
@@ -24,10 +21,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by admin on 2017/4/20.
@@ -51,7 +45,15 @@ public class APIController {
 
 
     @RequestMapping(value = "/allRants", method = {RequestMethod.GET})
-    public void allRants(HttpServletResponse response) throws IOException {
+    public void allRants(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        HashMap<Integer, Integer> rantId2Value = new HashMap<>();
+        List<Star> starList = starService.selectByUserId(id);
+        for(Star star:starList){
+            rantId2Value.put(star.getRantId(), star.getStarValue());
+        }
+
         Gson gson = new Gson();
         List<Rant> rantList = rantService.selectAll();
         List<RantItem> rantItemList = new ArrayList<>();
@@ -61,6 +63,15 @@ public class APIController {
             String username = userService.selectByPrimaryKey(rant.getUserId()).getUserName();
             List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
             rantItem.setUserName(username);
+            //如果登录用户对此rant 赞过或者踩过
+            if(rantId2Value.containsKey(rant.getRantId())){
+                int value = rantId2Value.get(rant.getRantId());
+                rantItem.setThumbFlag(value);
+            }
+            else{
+                rantItem.setThumbFlag(0);
+            }
+
             if(commentList==null) rantItem.setCommentsNum(0);
             else rantItem.setCommentsNum(commentList.size());
             rantItemList.add(rantItem);
@@ -87,7 +98,19 @@ public class APIController {
             commentItemList.add(commentItem);
         }
         detailItem.setCommentList(commentItemList);
-
+        //设置当前浏览用户的赞踩状态 thumbValue
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Star> starList = starService.selectByUserId(id);
+        detailItem.setThumbValue(0);//by default
+        for(Star star: starList){
+            if(star.getRantId()==rantId && star.getStarValue()==1){
+                detailItem.setThumbValue(1);
+            }
+            else if(star.getRantId()==rantId && star.getStarValue()==-1){
+                detailItem.setThumbValue(-1);
+            }
+        }
         Gson gson = new Gson();
         response.getWriter().print(gson.toJson(detailItem));
 
@@ -123,6 +146,85 @@ public class APIController {
             response.getWriter().print("1");
         }
 
+    }
+
+    @RequestMapping(value = "/thumbsUp",method = {RequestMethod.POST})
+    public void thumbsUp(HttpServletRequest request){
+        String token = request.getParameter("token");
+        int rantId = Integer.valueOf(request.getParameter("rantId"));
+        int userId = tokenService.queryIdByToken(token);
+        List<Star> starList = starService.selectByRantId(rantId);//得到这篇文章的所有赞和踩
+
+        for(Star star:starList){
+            if(star.getUserId().equals(userId)&&star.getStarValue()==1){//已经赞过
+                //取消赞
+                Rant rant = rantService.selectByPrimaryKey(rantId);
+                Integer value = rant.getRantValue();
+                rant.setRantValue(value-1);
+                rantService.updateByPrimaryKeySelective(rant);
+                starService.deleteByPrimaryKey(star.getStarId());
+                return;
+            }
+            else if(star.getUserId().equals(userId)&&star.getStarValue()==-1){//已经踩过
+                //取消踩
+                Rant rant = rantService.selectByPrimaryKey(rantId);
+                Integer value = rant.getRantValue();
+                rant.setRantValue(value+1);
+                rantService.updateByPrimaryKeySelective(rant);
+                starService.deleteByPrimaryKey(star.getStarId());
+                return;
+            }
+        }
+        //没有赞过也没有踩过
+        Star star = new Star();
+        star.setRantId(rantId);
+        star.setUserId(userId);
+        star.setStarValue(1);
+        star.setStarRead(0);
+        starService.insert(star);
+        Rant rant = rantService.selectByPrimaryKey(rantId);
+        rant.setRantValue(rant.getRantValue()+1);
+        rantService.updateByPrimaryKeySelective(rant);
+    }
+
+
+    @RequestMapping(value = "/thumbsDown",method = {RequestMethod.POST})
+    public void thumbsDown(HttpServletRequest request){
+        String token = request.getParameter("token");
+        int rantId = Integer.valueOf(request.getParameter("rantId"));
+        int userId = tokenService.queryIdByToken(token);
+        List<Star> starList = starService.selectByRantId(rantId);//得到这篇文章的所有赞和踩
+
+        for(Star star:starList){
+            if(star.getUserId().equals(userId)&&star.getStarValue()==1){//已经赞过
+                //取消赞
+                Rant rant = rantService.selectByPrimaryKey(rantId);
+                Integer value = rant.getRantValue();
+                rant.setRantValue(value-1);
+                rantService.updateByPrimaryKeySelective(rant);
+                starService.deleteByPrimaryKey(star.getStarId());
+                return;
+            }
+            else if(star.getUserId().equals(userId)&&star.getStarValue()==-1){//已经踩过
+                //取消踩
+                Rant rant = rantService.selectByPrimaryKey(rantId);
+                Integer value = rant.getRantValue();
+                rant.setRantValue(value+1);
+                rantService.updateByPrimaryKeySelective(rant);
+                starService.deleteByPrimaryKey(star.getStarId());
+                return;
+            }
+        }
+        //没有赞过也没有踩过
+        Star star = new Star();
+        star.setRantId(rantId);
+        star.setUserId(userId);
+        star.setStarValue(-1);
+        star.setStarRead(0);
+        starService.insert(star);
+        Rant rant = rantService.selectByPrimaryKey(rantId);
+        rant.setRantValue(rant.getRantValue()-1);
+        rantService.updateByPrimaryKeySelective(rant);
     }
 
     // TODO: 2017/5/1 可能需要包装  
