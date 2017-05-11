@@ -7,10 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4052ea6-afb0-4ec4-b665-4a27623b9bc7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/xtlog/rants/wrapper/CmtNotifyItem.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/xtlog/rants/wrapper/StarNotifyItem.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/footer.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/footer.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/myInfo.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/myInfo.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/rantList.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/rantList.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/jsp/userInfo.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/jsp/userInfo.jsp" />
     </list>
     <ignored path="rants.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,8 +56,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="APIController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="APIController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -525,11 +538,11 @@
       <recent name="com.xtlog.rants.controller" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\Rants\web\WEB-INF" />
       <recent name="D:\JavaProject\Rants\src\com\xtlog\rants\wrapper" />
       <recent name="D:\JavaProject\Rants\lib" />
       <recent name="D:\JavaProject\Rants\src\com\xtlog\rants\mapper" />
       <recent name="D:\JavaProject\Rants\web\WEB-INF\jsp" />
-      <recent name="D:\JavaProject\Rants\web" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.home.jsp">
@@ -1257,7 +1270,7 @@
       <workItem from="1493826664558" duration="167000" />
       <workItem from="1494085229856" duration="2237000" />
       <workItem from="1494133482639" duration="4715000" />
-      <workItem from="1494472284645" duration="157000" />
+      <workItem from="1494472284645" duration="249000" />
     </task>
     <servers />
   </component>
@@ -1288,7 +1301,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154608000" />
+    <option name="totallyTimeSpent" value="154700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="548" y="132" width="1453" height="1037" extended-state="0" />
@@ -1431,27 +1444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/userInfo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="19.0">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/myInfo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.214286">
-          <caret line="164" column="78" selection-start-line="164" selection-start-column="78" selection-end-line="164" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/footer.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5841424">
-          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/intercepter/LoginInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14705883">
@@ -1466,32 +1458,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/rantList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.75">
-          <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/home.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/header.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45084745">
-          <caret line="21" column="83" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/rantDetail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96158195">
-          <caret line="118" column="112" selection-start-line="118" selection-start-column="112" selection-end-line="118" selection-end-column="112" />
         </state>
       </provider>
     </entry>
@@ -1628,14 +1599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2141707">
-          <caret line="122" column="143" selection-start-line="122" selection-start-column="143" selection-end-line="122" selection-end-column="143" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/pojo/Rant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4991511">
@@ -1761,6 +1724,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xtlog/rants/controller/APIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/jsp/home.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />

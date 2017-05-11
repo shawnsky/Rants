@@ -59,7 +59,7 @@
     </script>
 
 </head>
-<body style="background-color: white;;">
+<body style="background-color: #e3e3e3;">
 
 <header>
     <%@include file="header.jsp"%><!--静态包含-->

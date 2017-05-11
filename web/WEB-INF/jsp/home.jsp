@@ -70,10 +70,10 @@
 
     </script>
 </head>
-<body style="background-color: white">
+<body style="background-color: #e3e3e3;">
 
 
-<header class="site-header" style="background-color: white;">
+<header class="site-header" >
     <%@include file="header.jsp"%><!--静态包含-->
 </header>
 
@@ -87,14 +87,14 @@
                     <h3><span class="col-md-1 glyphicon glyphicon-pencil hidden-sm hidden-xs" style="padding: 0 0 0 0;text-align: center;"></span></h3>
 
                     <form id="newRantForm" method="post" action="${pageContext.request.contextPath }/sendRant.action">
-                        <div class="col-md-9" style="padding: 0">
+                        <div class="col-xs-9" style="padding: 0">
                             <input type="text" id="txtContent" name="newRantContent" class="form-control search clearable" placeholder="说点有趣的..." autocomplete="off">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-xs-2">
 
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-info" style="background-color: white;color: black;" onclick="PushNewRant();">快捷发送</button>
-                                    <button style="height: 34px;" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-danger" style="background-color: white;color: black;" onclick="PushNewRant();">快捷发送</button>
+                                    <button style="height: 34px;background-color: #D55161;" type="button" class="btn btn-info dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">

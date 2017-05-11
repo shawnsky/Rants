@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.css">
 
 </head>
-<body style="background-color: white;;">
+<body style="background-color: #e3e3e3;">
 
 <header>
     <%@include file="header.jsp"%><!--静态包含-->

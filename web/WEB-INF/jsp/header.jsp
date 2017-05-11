@@ -8,13 +8,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- 顶部导航 -->
 
-<nav class="navbar navbar-static-top main-navbar navbar-inverse" id="top"  >
+<nav class="navbar navbar-static-top main-navbar navbar-inverse" id="top" style="background-color: #54556E;" >
     <div class="container">
         <div class="navbar-header">
-            <a href="${pageContext.request.contextPath}/home.action" class="navbar-brand brand-bootcdn" onclick="">Rants</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style="background-color: #D55161">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="${pageContext.request.contextPath}/home.action" class="navbar-brand brand-bootcdn" style="color: white">Rants</a>
         </div>
 
-        <nav id="bs-navbar" class="collapse navbar-collapse">
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <%--已登陆--%>
                 <c:if test="${sessionScope.username != null}">
@@ -22,17 +29,17 @@
                     <li><a href="${pageContext.request.contextPath }/logout.action">退出</a></li>
                 </c:if>
 
-                    <%--未登录--%>
-                    <c:if test="${sessionScope.username == null}">
-                        <li><a data-toggle="modal" data-target="#register" href=""><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-                        <li><a id="loginButton" data-toggle="modal" data-target="#login" href=""><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                    </c:if>
+                <%--未登录--%>
+                <c:if test="${sessionScope.username == null}">
+                    <li><a data-toggle="modal" data-target="#register" href=""><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li><a id="loginButton" data-toggle="modal" data-target="#login" href=""><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                </c:if>
 
-                <li><a href="/api/" onclick="" target="_blank">API</a></li>
+                <li><a href="/api/" onclick="" target="_blank" >API</a></li>
                 <li><a href="http://xtlog.com/" onclick="" target="_blank">博客</a></li>
                 <li><a href="#about" onclick="">关于</a></li>
             </ul>
-        </nav>
+        </div>
     </div>
 
 </nav>
