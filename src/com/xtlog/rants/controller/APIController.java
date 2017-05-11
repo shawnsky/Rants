@@ -1,22 +1,17 @@
 package com.xtlog.rants.controller;
 
 import com.google.gson.Gson;
-import com.sun.deploy.net.HttpResponse;
 import com.xtlog.rants.pojo.*;
 import com.xtlog.rants.service.*;
-import com.xtlog.rants.wrapper.CommentItem;
-import com.xtlog.rants.wrapper.DetailItem;
-import com.xtlog.rants.wrapper.RantItem;
+import com.xtlog.rants.wrapper.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -80,6 +75,13 @@ public class APIController {
         String json = gson.toJson(rantItemList);
         response.getWriter().print(json);
     }
+
+    @RequestMapping(value = "/activeRanter", method = {RequestMethod.GET})
+    public void hotRants(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    }
+
+
 
     @RequestMapping(value = "/rant",method = {RequestMethod.GET})
     public void rant(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -227,7 +229,70 @@ public class APIController {
         rantService.updateByPrimaryKeySelective(rant);
     }
 
-    // TODO: 2017/5/1 可能需要包装  
+    @RequestMapping(value = "/getCmtNotify",method = {RequestMethod.GET})
+    public void getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Rant> rantList = rantService.selectByUserId(id);
+        List<Comment> allComments = new ArrayList<>();
+        for(Rant rant:rantList){
+            List<Comment> comments = commentService.selectAllByRantId(rant.getRantId());
+            List<Comment> commentsFromOthers = new ArrayList<>();
+            for(Comment comment:comments){
+                if(comment.getUserId()!=id)commentsFromOthers.add(comment);
+            }
+            allComments.addAll(commentsFromOthers);
+        }
+
+        List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
+        for(Comment comment:allComments){
+            CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
+            BeanUtils.copyProperties(comment, cmtNotifyItem);
+            User user = userService.selectByPrimaryKey(comment.getUserId());
+            Rant rant = rantService.selectByPrimaryKey(comment.getRantId());
+            cmtNotifyItem.setUserAvatar(user.getUserAvatar());
+            cmtNotifyItem.setUserName(user.getUserName());
+            cmtNotifyItem.setRantContent(rant.getRantContent());
+            cmtNotifyItems.add(cmtNotifyItem);
+        }
+
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(cmtNotifyItems));
+
+    }
+    
+    @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
+    public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Rant> rantList = rantService.selectByUserId(id);
+        List<Star> allStars = new ArrayList<>();
+        for(Rant rant:rantList){
+            List<Star> stars = starService.selectByRantId(rant.getRantId());
+            List<Star> starsFromOthers = new ArrayList<>();
+            for(Star star:stars){
+                if(star.getUserId()!=id)starsFromOthers.add(star);
+            }
+            allStars.addAll(starsFromOthers);
+        }
+
+        List<StarNotifyItem> starNotifyItems = new ArrayList<>();
+        for(Star star:allStars){
+            StarNotifyItem starNotifyItem = new StarNotifyItem();
+            BeanUtils.copyProperties(star, starNotifyItem);
+            User user = userService.selectByPrimaryKey(star.getUserId());
+            Rant rant = rantService.selectByPrimaryKey(star.getRantId());
+            starNotifyItem.setUserAvatar(user.getUserAvatar());
+            starNotifyItem.setUserName(user.getUserName());
+            starNotifyItem.setRantContent(rant.getRantContent());
+            starNotifyItems.add(starNotifyItem);
+        }
+
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(starNotifyItems));
+    }
+
+    // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/allUsers")
     public void allUsers(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
@@ -236,7 +301,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
-    // TODO: 2017/5/1 可能需要包装 
+    // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/rant")
     public void rant(HttpServletResponse response, Integer userId) throws IOException {
         Gson gson = new Gson();
@@ -245,7 +310,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
-    // TODO: 2017/5/1 可能需要包装 
+    // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/recentHotRants")
     public void recentHotRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
@@ -266,7 +331,7 @@ public class APIController {
         response.getWriter().print(tem1+json+tem2);
     }
 
-    // TODO: 2017/5/1 可能需要包装 
+    // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/valuableRants")
     public void valuableRants(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
