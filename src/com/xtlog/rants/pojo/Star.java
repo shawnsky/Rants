@@ -1,5 +1,7 @@
 package com.xtlog.rants.pojo;
 
+import java.util.Date;
+
 /**
  * Created by admin on 2017/4/19.
  */
@@ -13,6 +15,16 @@ public class Star {
     private Integer starValue;
 
     private Integer starRead;
+
+    private Date starDate;
+
+    public Date getStarDate() {
+        return starDate;
+    }
+
+    public void setStarDate(Date starDate) {
+        this.starDate = starDate;
+    }
 
     public Integer getStarRead() {
         return starRead;

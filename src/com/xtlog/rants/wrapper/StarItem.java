@@ -1,5 +1,7 @@
 package com.xtlog.rants.wrapper;
 
+import java.util.Date;
+
 /**
  * Created by admin on 2017/5/2.
  */
@@ -14,6 +16,16 @@ public class StarItem {
     private Integer starValue;
 
     private Integer starRead;
+
+    private Date starDate;
+
+    public Date getStarDate() {
+        return starDate;
+    }
+
+    public void setStarDate(Date starDate) {
+        this.starDate = starDate;
+    }
 
     //新增属性
     private String userName;

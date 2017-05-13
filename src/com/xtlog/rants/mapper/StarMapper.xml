@@ -7,9 +7,10 @@
     <result column="rant_id" jdbcType="INTEGER" property="rantId" />
     <result column="star_value" jdbcType="INTEGER" property="starValue" />
     <result column="star_read" jdbcType="INTEGER" property="starRead" />
+    <result column="star_date" jdbcType="TIMESTAMP" property="starDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    star_id, user_id, rant_id, star_value, star_read
+    star_id, user_id, rant_id, star_value, star_read, star_date
   </sql>
   <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT
@@ -37,9 +38,9 @@
   </delete>
   <insert id="insert" parameterType="com.xtlog.rants.pojo.Star">
     insert into star (star_id, user_id, rant_id,
-      star_value, star_read)
+      star_value, star_read, star_date)
     values (#{starId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantId,jdbcType=INTEGER},
-      #{starValue,jdbcType=VARCHAR}, #{starRead,jdbcType=VARCHAR})
+      #{starValue,jdbcType=VARCHAR}, #{starRead,jdbcType=VARCHAR}, #{starDate,jdbcType=TIMESTAMP})
   </insert>
 
 
@@ -49,6 +50,7 @@
       rant_id = #{rantId,jdbcType=INTEGER},
       star_value = #{starValue,jdbcType=VARCHAR}
       star_read = #{starRead,jdbcType=VARCHAR}
+      star_date = #{starDate,jdbcType=TIMESTAMP}
     where star_id = #{starId,jdbcType=INTEGER}
   </update>
 

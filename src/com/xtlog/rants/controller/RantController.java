@@ -119,6 +119,7 @@ public class RantController {
         star.setUserId(userId);
         star.setStarValue(1);
         star.setStarRead(0);
+        star.setStarDate(new Date());
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()+1);
@@ -159,6 +160,7 @@ public class RantController {
         star.setUserId(userId);
         star.setStarValue(-1);
         star.setStarRead(0);
+        star.setStarDate(new Date());
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()-1);

@@ -183,6 +183,7 @@ public class APIController {
         star.setUserId(userId);
         star.setStarValue(1);
         star.setStarRead(0);
+        star.setStarDate(new Date());
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()+1);
@@ -223,6 +224,7 @@ public class APIController {
         star.setUserId(userId);
         star.setStarValue(-1);
         star.setStarRead(0);
+        star.setStarDate(new Date());
         starService.insert(star);
         Rant rant = rantService.selectByPrimaryKey(rantId);
         rant.setRantValue(rant.getRantValue()-1);
@@ -260,6 +262,40 @@ public class APIController {
         response.getWriter().print(gson.toJson(cmtNotifyItems));
 
     }
+
+    @RequestMapping(value = "/getCmtNotifyNew",method = {RequestMethod.GET})
+    public void getCmtNotifyNew(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String token = request.getParameter("token");
+        long time = Long.valueOf(request.getParameter("time"));
+        int id = tokenService.queryIdByToken(token);
+        List<Rant> rantList = rantService.selectByUserId(id);
+        List<Comment> allComments = new ArrayList<>();
+        for(Rant rant:rantList){
+            List<Comment> comments = commentService.selectAllByRantId(rant.getRantId());
+            List<Comment> commentsFromOthers = new ArrayList<>();
+            for(Comment comment:comments){
+                if(comment.getUserId()!=id)commentsFromOthers.add(comment);
+            }
+            allComments.addAll(commentsFromOthers);
+        }
+
+        List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
+        for(Comment comment:allComments){
+            if(comment.getCommentDate().getTime()>time){
+                CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
+                BeanUtils.copyProperties(comment, cmtNotifyItem);
+                User user = userService.selectByPrimaryKey(comment.getUserId());
+                Rant rant = rantService.selectByPrimaryKey(comment.getRantId());
+                cmtNotifyItem.setUserAvatar(user.getUserAvatar());
+                cmtNotifyItem.setUserName(user.getUserName());
+                cmtNotifyItem.setRantContent(rant.getRantContent());
+                cmtNotifyItems.add(cmtNotifyItem);
+            }
+        }
+
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(cmtNotifyItems));
+    }
     
     @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
     public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -286,6 +322,40 @@ public class APIController {
             starNotifyItem.setUserName(user.getUserName());
             starNotifyItem.setRantContent(rant.getRantContent());
             starNotifyItems.add(starNotifyItem);
+        }
+
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(starNotifyItems));
+    }
+
+    @RequestMapping(value = "/getStarNotifyNew",method = {RequestMethod.GET})
+    public void getStarNotifyNew(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        long time = Long.valueOf(request.getParameter("time"));
+        int id = tokenService.queryIdByToken(token);
+        List<Rant> rantList = rantService.selectByUserId(id);
+        List<Star> allStars = new ArrayList<>();
+        for(Rant rant:rantList){
+            List<Star> stars = starService.selectByRantId(rant.getRantId());
+            List<Star> starsFromOthers = new ArrayList<>();
+            for(Star star:stars){
+                if(star.getUserId()!=id)starsFromOthers.add(star);
+            }
+            allStars.addAll(starsFromOthers);
+        }
+
+        List<StarNotifyItem> starNotifyItems = new ArrayList<>();
+        for(Star star:allStars){
+            if(star.getStarDate().getTime()>time){
+                StarNotifyItem starNotifyItem = new StarNotifyItem();
+                BeanUtils.copyProperties(star, starNotifyItem);
+                User user = userService.selectByPrimaryKey(star.getUserId());
+                Rant rant = rantService.selectByPrimaryKey(star.getRantId());
+                starNotifyItem.setUserAvatar(user.getUserAvatar());
+                starNotifyItem.setUserName(user.getUserName());
+                starNotifyItem.setRantContent(rant.getRantContent());
+                starNotifyItems.add(starNotifyItem);
+            }
         }
 
         Gson gson = new Gson();
