@@ -23,4 +23,6 @@ public interface CommentService {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectAll();
 }

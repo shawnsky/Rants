@@ -18,6 +18,8 @@ public interface StarService {
 
     List<Star> selectByUserId(Integer userId);
 
+    List<Star> selectAll();
+
     int updateByPrimaryKey(Star record);
 }
 

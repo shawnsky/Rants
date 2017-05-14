@@ -18,5 +18,7 @@ public interface StarMapper {
 
     List<Star> selectByUserId(Integer userId);
 
+    List<Star> selectAll();
+
     int updateByPrimaryKey(Star record);
 }

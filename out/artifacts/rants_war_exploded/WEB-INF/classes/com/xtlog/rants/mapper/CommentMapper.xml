@@ -36,6 +36,12 @@
     from comment
     where comment_id = #{commentId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from comment
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment
     where comment_id = #{commentId,jdbcType=INTEGER}

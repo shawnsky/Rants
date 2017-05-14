@@ -12,6 +12,14 @@
   <sql id="Base_Column_List">
     star_id, user_id, rant_id, star_value, star_read, star_date
   </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from star
+  </select>
+
+
   <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />

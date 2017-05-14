@@ -39,6 +39,11 @@ public class StarServiceImpl implements StarService {
     }
 
     @Override
+    public List<Star> selectAll() {
+        return starMapper.selectAll();
+    }
+
+    @Override
     public int updateByPrimaryKey(Star record) {
         return starMapper.updateByPrimaryKey(record);
     }

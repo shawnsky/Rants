@@ -71,7 +71,7 @@ public class APIController {
             else rantItem.setCommentsNum(commentList.size());
             rantItemList.add(rantItem);
         }
-        Collections.reverse(rantItemList);//反向，新的靠前。
+        Collections.reverse(rantItemList);//新的靠前
         String json = gson.toJson(rantItemList);
         response.getWriter().print(json);
     }
@@ -230,24 +230,55 @@ public class APIController {
         rant.setRantValue(rant.getRantValue()-1);
         rantService.updateByPrimaryKeySelective(rant);
     }
+    // FIXME: 2017/5/14 顺序有毛病
+//    @RequestMapping(value = "/getCmtNotify",method = {RequestMethod.GET})
+//    public void getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String token = request.getParameter("token");
+//        int id = tokenService.queryIdByToken(token);
+//        List<Rant> rantList = rantService.selectByUserId(id);
+//        List<Comment> allComments = new ArrayList<>();
+//        for(Rant rant:rantList){
+//            List<Comment> comments = commentService.selectAllByRantId(rant.getRantId());
+//            List<Comment> commentsFromOthers = new ArrayList<>();
+//            for(Comment comment:comments){
+//                if(comment.getUserId()!=id)commentsFromOthers.add(comment);
+//            }
+//            allComments.addAll(commentsFromOthers);
+//        }
+//
+//        List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
+//        for(Comment comment:allComments){
+//            CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
+//            BeanUtils.copyProperties(comment, cmtNotifyItem);
+//            User user = userService.selectByPrimaryKey(comment.getUserId());
+//            Rant rant = rantService.selectByPrimaryKey(comment.getRantId());
+//            cmtNotifyItem.setUserAvatar(user.getUserAvatar());
+//            cmtNotifyItem.setUserName(user.getUserName());
+//            cmtNotifyItem.setRantContent(rant.getRantContent());
+//            cmtNotifyItems.add(cmtNotifyItem);
+//        }
+//
+//        Gson gson = new Gson();
+//        response.getWriter().print(gson.toJson(cmtNotifyItems));
+//
+//    }
+
 
     @RequestMapping(value = "/getCmtNotify",method = {RequestMethod.GET})
     public void getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
-        List<Rant> rantList = rantService.selectByUserId(id);
-        List<Comment> allComments = new ArrayList<>();
-        for(Rant rant:rantList){
-            List<Comment> comments = commentService.selectAllByRantId(rant.getRantId());
-            List<Comment> commentsFromOthers = new ArrayList<>();
-            for(Comment comment:comments){
-                if(comment.getUserId()!=id)commentsFromOthers.add(comment);
+        List<Comment> allComments = commentService.selectAll();
+        List<Comment> replyComments = new ArrayList<>();
+
+        for(Comment comment:allComments){
+            if(comment.getUserId()!=id && rantService.selectByPrimaryKey(comment.getRantId()).getUserId()==id){
+                replyComments.add(comment);
             }
-            allComments.addAll(commentsFromOthers);
         }
 
         List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
-        for(Comment comment:allComments){
+        for(Comment comment:replyComments){
             CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
             BeanUtils.copyProperties(comment, cmtNotifyItem);
             User user = userService.selectByPrimaryKey(comment.getUserId());
@@ -263,10 +294,18 @@ public class APIController {
 
     }
 
-    @RequestMapping(value = "/getCmtNotifyNew",method = {RequestMethod.GET})
+
+
+
+
+
+    @RequestMapping(value = "/getCmtNotifyCnt",method = {RequestMethod.GET})
     public void getCmtNotifyNew(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
-        long time = Long.valueOf(request.getParameter("time"));
+//        String timeStr = request.getParameter("time");
+//        Date time = new Date(Long.parseLong(timeStr));
+
+
         int id = tokenService.queryIdByToken(token);
         List<Rant> rantList = rantService.selectByUserId(id);
         List<Comment> allComments = new ArrayList<>();
@@ -281,7 +320,7 @@ public class APIController {
 
         List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
         for(Comment comment:allComments){
-            if(comment.getCommentDate().getTime()>time){
+//            if(comment.getCommentDate().after(time)){
                 CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
                 BeanUtils.copyProperties(comment, cmtNotifyItem);
                 User user = userService.selectByPrimaryKey(comment.getUserId());
@@ -290,30 +329,60 @@ public class APIController {
                 cmtNotifyItem.setUserName(user.getUserName());
                 cmtNotifyItem.setRantContent(rant.getRantContent());
                 cmtNotifyItems.add(cmtNotifyItem);
-            }
+//            }
         }
 
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(cmtNotifyItems));
+        response.getWriter().print(cmtNotifyItems.size());
     }
-    
+
+    // FIXME: 2017/5/14 顺序有毛病
+//    @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
+//    public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
+//        String token = request.getParameter("token");
+//        int id = tokenService.queryIdByToken(token);
+//        List<Rant> rantList = rantService.selectByUserId(id);
+//        List<Star> allStars = new ArrayList<>();
+//        for(Rant rant:rantList){
+//            List<Star> stars = starService.selectByRantId(rant.getRantId());
+//            List<Star> starsFromOthers = new ArrayList<>();
+//            for(Star star:stars){
+//                if(star.getUserId()!=id)starsFromOthers.add(star);
+//            }
+//            allStars.addAll(starsFromOthers);
+//        }
+//
+//        List<StarNotifyItem> starNotifyItems = new ArrayList<>();
+//        for(Star star:allStars){
+//            StarNotifyItem starNotifyItem = new StarNotifyItem();
+//            BeanUtils.copyProperties(star, starNotifyItem);
+//            User user = userService.selectByPrimaryKey(star.getUserId());
+//            Rant rant = rantService.selectByPrimaryKey(star.getRantId());
+//            starNotifyItem.setUserAvatar(user.getUserAvatar());
+//            starNotifyItem.setUserName(user.getUserName());
+//            starNotifyItem.setRantContent(rant.getRantContent());
+//            starNotifyItems.add(starNotifyItem);
+//        }
+//
+//        Gson gson = new Gson();
+//        response.getWriter().print(gson.toJson(starNotifyItems));
+//    }
+
+
     @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
     public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
-        List<Rant> rantList = rantService.selectByUserId(id);
-        List<Star> allStars = new ArrayList<>();
-        for(Rant rant:rantList){
-            List<Star> stars = starService.selectByRantId(rant.getRantId());
-            List<Star> starsFromOthers = new ArrayList<>();
-            for(Star star:stars){
-                if(star.getUserId()!=id)starsFromOthers.add(star);
+        List<Star> allStar = starService.selectAll();
+        List<Star> replyStar = new ArrayList<>();
+
+        for(Star star:allStar){
+            if(star.getUserId()!=id && rantService.selectByPrimaryKey(star.getRantId()).getUserId()==id){
+                replyStar.add(star);
             }
-            allStars.addAll(starsFromOthers);
         }
 
         List<StarNotifyItem> starNotifyItems = new ArrayList<>();
-        for(Star star:allStars){
+        for(Star star:replyStar){
             StarNotifyItem starNotifyItem = new StarNotifyItem();
             BeanUtils.copyProperties(star, starNotifyItem);
             User user = userService.selectByPrimaryKey(star.getUserId());
@@ -328,10 +397,13 @@ public class APIController {
         response.getWriter().print(gson.toJson(starNotifyItems));
     }
 
-    @RequestMapping(value = "/getStarNotifyNew",method = {RequestMethod.GET})
+
+    @RequestMapping(value = "/getStarNotifyCnt",method = {RequestMethod.GET})
     public void getStarNotifyNew(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
-        long time = Long.valueOf(request.getParameter("time"));
+//        String timeStr = request.getParameter("time");
+//        Date time = new Date(Long.parseLong(timeStr));
+
         int id = tokenService.queryIdByToken(token);
         List<Rant> rantList = rantService.selectByUserId(id);
         List<Star> allStars = new ArrayList<>();
@@ -346,7 +418,7 @@ public class APIController {
 
         List<StarNotifyItem> starNotifyItems = new ArrayList<>();
         for(Star star:allStars){
-            if(star.getStarDate().getTime()>time){
+//            if(star.getStarDate().after(time)){
                 StarNotifyItem starNotifyItem = new StarNotifyItem();
                 BeanUtils.copyProperties(star, starNotifyItem);
                 User user = userService.selectByPrimaryKey(star.getUserId());
@@ -355,12 +427,13 @@ public class APIController {
                 starNotifyItem.setUserName(user.getUserName());
                 starNotifyItem.setRantContent(rant.getRantContent());
                 starNotifyItems.add(starNotifyItem);
-            }
+//            }
         }
 
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(starNotifyItems));
+
+        response.getWriter().print(starNotifyItems.size());
     }
+
 
     // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/allUsers")

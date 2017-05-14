@@ -60,4 +60,9 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.updateByPrimaryKey(record);
         return 0;
     }
+
+    @Override
+    public List<Comment> selectAll() {
+        return commentMapper.selectAll();
+    }
 }
