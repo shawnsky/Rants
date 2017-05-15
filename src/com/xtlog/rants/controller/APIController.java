@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -362,6 +363,26 @@ public class APIController {
 
 
         response.getWriter().print(starNotifyItems.size());
+    }
+
+
+    @RequestMapping(value = "/sendComment",method = {RequestMethod.POST})
+    public void sendComment(HttpServletRequest request, HttpServletResponse response){
+        String token = request.getParameter("token");
+        String content = request.getParameter("content");
+        int rantId = Integer.parseInt(request.getParameter("rantId"));
+        int userId = tokenService.queryIdByToken(token);
+
+        User user = userService.selectByPrimaryKey(userId);
+        Comment comment = new Comment();
+        comment.setCommentContent(content);
+        comment.setUserId(user.getUserId());
+        comment.setCommentDate(new Date());
+        comment.setCommentHidden(0);
+        comment.setRantId(rantId);
+        comment.setCommentValue(0);
+        comment.setCommentRead(0);
+        commentService.insert(comment);
     }
 
 
