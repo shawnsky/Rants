@@ -385,6 +385,36 @@ public class APIController {
         commentService.insert(comment);
     }
 
+    @RequestMapping(value = "/userInfo",method = {RequestMethod.GET})
+    public void userInfo(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        User user = userService.selectByPrimaryKey(id);
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(user));
+    }
+
+    @RequestMapping(value = "/setRead",method = RequestMethod.GET)
+    public void setRead(HttpServletRequest request, HttpServletResponse response)throws IOException{
+        /**
+         * 存在flag参数，flag=0表示标记评论，flag=1表示标记star
+         */
+        int flag = Integer.parseInt(request.getParameter("flag"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        if(flag==0){
+            Comment comment = commentService.selectByPrimaryKey(id);
+            comment.setCommentRead(1);
+            commentService.updateByPrimaryKeySelective(comment);
+            response.getWriter().print("cmt:success");
+        }
+        else{
+            Star star = starService.selectByPrimaryKey(id);
+            star.setStarRead(1);
+            starService.updateByPrimaryKey(star);
+            response.getWriter().print("star:success");
+        }
+    }
+
 
     // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/allUsers")
