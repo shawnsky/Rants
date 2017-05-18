@@ -415,6 +415,133 @@ public class APIController {
         }
     }
 
+    @RequestMapping(value = "/myRant",method = {RequestMethod.GET})
+    public void myRant(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Rant> rantList = rantService.selectByUserId(id);
+        List<RantItem> rantItemList = new ArrayList<>();
+
+        HashMap<Integer, Integer> rantId2Value = new HashMap<>();
+        List<Star> starList = starService.selectByUserId(id);
+        for(Star star:starList){
+            rantId2Value.put(star.getRantId(), star.getStarValue());
+        }
+
+
+        for(Rant rant: rantList){
+            RantItem rantItem = new RantItem();
+            BeanUtils.copyProperties(rant,rantItem);
+            rantItem.setUserName(userService.selectByPrimaryKey(id).getUserName());
+            List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
+            //如果登录用户对此rant 赞过或者踩过
+            if(rantId2Value.containsKey(rant.getRantId())){
+                int value = rantId2Value.get(rant.getRantId());
+                rantItem.setThumbFlag(value);
+            }
+            else{
+                rantItem.setThumbFlag(0);
+            }
+
+            if(commentList==null) rantItem.setCommentsNum(0);
+            else rantItem.setCommentsNum(commentList.size());
+            rantItemList.add(rantItem);
+        }
+
+        Collections.reverse(rantItemList);
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(rantItemList));
+
+    }
+
+    @RequestMapping(value = "/myUp", method = {RequestMethod.GET})
+    public void myUp(HttpServletRequest request, HttpServletResponse response)throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Star> starList = starService.selectByUserId(id);
+        List<Rant> rantList = new ArrayList<>();
+        for(Star star:starList){
+            if(star.getStarValue()==1){
+                rantList.add(rantService.selectByPrimaryKey(star.getRantId()));
+            }
+        }
+
+        List<RantItem> rantItemList = new ArrayList<>();
+
+        for(Rant rant: rantList){
+            RantItem rantItem = new RantItem();
+            BeanUtils.copyProperties(rant,rantItem);
+            rantItem.setUserName(userService.selectByPrimaryKey(id).getUserName());
+            List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
+            rantItem.setThumbFlag(1);
+            if(commentList==null) rantItem.setCommentsNum(0);
+            else rantItem.setCommentsNum(commentList.size());
+            rantItemList.add(rantItem);
+        }
+
+        Collections.reverse(rantItemList);
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(rantItemList));
+
+    }
+
+    @RequestMapping(value = "/myDown", method = {RequestMethod.GET})
+    public void myDown(HttpServletRequest request, HttpServletResponse response)throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Star> starList = starService.selectByUserId(id);
+        List<Rant> rantList = new ArrayList<>();
+        for(Star star:starList){
+            if(star.getStarValue()==-1){
+                rantList.add(rantService.selectByPrimaryKey(star.getRantId()));
+            }
+        }
+
+        List<RantItem> rantItemList = new ArrayList<>();
+
+        for(Rant rant: rantList){
+            RantItem rantItem = new RantItem();
+            BeanUtils.copyProperties(rant,rantItem);
+            rantItem.setUserName(userService.selectByPrimaryKey(id).getUserName());
+            List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
+            rantItem.setThumbFlag(-1);
+            if(commentList==null) rantItem.setCommentsNum(0);
+            else rantItem.setCommentsNum(commentList.size());
+            rantItemList.add(rantItem);
+        }
+
+        Collections.reverse(rantItemList);
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(rantItemList));
+
+    }
+
+    @RequestMapping(value = "/myComment", method = {RequestMethod.GET})
+    public void myComment(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        List<Comment> commentList = commentService.selectAllByUserId(id);
+
+        //这里借用CmtNotifyItem
+        List<CmtNotifyItem> cmtNotifyItems = new ArrayList<>();
+        for(Comment comment:commentList){
+            CmtNotifyItem cmtNotifyItem = new CmtNotifyItem();
+            BeanUtils.copyProperties(comment, cmtNotifyItem);
+            User user = userService.selectByPrimaryKey(id);
+            Rant rant = rantService.selectByPrimaryKey(comment.getRantId());
+            cmtNotifyItem.setUserAvatar(user.getUserAvatar());
+            cmtNotifyItem.setUserName(user.getUserName());
+            cmtNotifyItem.setRantContent(rant.getRantContent());
+            cmtNotifyItems.add(cmtNotifyItem);
+        }
+
+        //Collections.reverse(cmtNotifyItems);
+        //这里返回的就是从近到远的顺序， 不知道为什么。
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(cmtNotifyItems));
+
+    }
+
 
     // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/allUsers")
