@@ -56,4 +56,10 @@
         <!--10分钟过期-->
         <session-timeout>10</session-timeout>
     </session-config>
+
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/error500.jsp</location>
+    </error-page>
 </web-app>

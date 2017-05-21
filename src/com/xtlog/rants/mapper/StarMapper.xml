@@ -48,7 +48,7 @@
     insert into star (star_id, user_id, rant_id,
       star_value, star_read, star_date)
     values (#{starId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rantId,jdbcType=INTEGER},
-      #{starValue,jdbcType=VARCHAR}, #{starRead,jdbcType=VARCHAR}, #{starDate,jdbcType=TIMESTAMP})
+      #{starValue,jdbcType=INTEGER}, #{starRead,jdbcType=INTEGER}, #{starDate,jdbcType=TIMESTAMP})
   </insert>
 
 
@@ -56,8 +56,8 @@
     update star
     set user_id = #{userId,jdbcType=INTEGER},
       rant_id = #{rantId,jdbcType=INTEGER},
-      star_value = #{starValue,jdbcType=VARCHAR}
-      star_read = #{starRead,jdbcType=VARCHAR}
+      star_value = #{starValue,jdbcType=INTEGER},
+      star_read = #{starRead,jdbcType=INTEGER},
       star_date = #{starDate,jdbcType=TIMESTAMP}
     where star_id = #{starId,jdbcType=INTEGER}
   </update>

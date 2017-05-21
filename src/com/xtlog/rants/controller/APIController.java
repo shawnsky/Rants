@@ -542,6 +542,44 @@ public class APIController {
 
     }
 
+    @RequestMapping(value = "/deleteRant", method = {RequestMethod.GET})
+    public void deleteRant(HttpServletRequest request) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        int rantId = Integer.parseInt(request.getParameter("rantId"));
+        //简单校验
+        Rant rant = rantService.selectByPrimaryKey(rantId);
+        if(id==rant.getUserId()){
+            rantService.deleteByPrimaryKey(rantId);
+        }
+
+    }
+
+    @RequestMapping(value = "/deleteComment", method = {RequestMethod.GET})
+    public void deleteComment(HttpServletRequest request) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        int commentId = Integer.parseInt(request.getParameter("commentId"));
+        //简单校验
+        Comment comment = commentService.selectByPrimaryKey(commentId);
+        if(id==comment.getUserId()){
+            commentService.deleteByPrimaryKey(commentId);
+        }
+    }
+
+    @RequestMapping(value = "/cancelThumb", method = {RequestMethod.GET})
+    public void cancelThumb(HttpServletRequest request)throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+        int rantId = Integer.parseInt(request.getParameter("rantId"));
+        List<Star> starList = starService.selectByUserId(id);
+        for(Star star: starList){
+            if(star.getRantId()==rantId){
+                starService.deleteByPrimaryKey(star.getStarId());
+            }
+        }
+    }
+
 
     // TODO: 2017/5/1 可能需要包装
     @RequestMapping("/allUsers")
