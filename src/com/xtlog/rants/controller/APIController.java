@@ -77,12 +77,6 @@ public class APIController {
         response.getWriter().print(json);
     }
 
-    @RequestMapping(value = "/activeRanter", method = {RequestMethod.GET})
-    public void hotRants(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    }
-
-
 
     @RequestMapping(value = "/rant",method = {RequestMethod.GET})
     public void rant(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -191,7 +185,6 @@ public class APIController {
         rantService.updateByPrimaryKeySelective(rant);
     }
 
-
     @RequestMapping(value = "/thumbsDown",method = {RequestMethod.POST})
     public void thumbsDown(HttpServletRequest request){
         String token = request.getParameter("token");
@@ -232,7 +225,6 @@ public class APIController {
         rantService.updateByPrimaryKeySelective(rant);
     }
 
-
     @RequestMapping(value = "/getCmtNotify",method = {RequestMethod.GET})
     public void getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
@@ -267,8 +259,6 @@ public class APIController {
 
     }
 
-
-
     @RequestMapping(value = "/getCmtNotifyCnt",method = {RequestMethod.GET})
     public void getCmtNotifyNew(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
@@ -298,8 +288,6 @@ public class APIController {
 
         response.getWriter().print(cmtNotifyItems.size());
     }
-
-
 
     @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
     public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -393,6 +381,67 @@ public class APIController {
         Gson gson = new Gson();
         response.getWriter().print(gson.toJson(user));
     }
+
+
+    @RequestMapping(value = "/userProfile",method = {RequestMethod.GET})
+    public void userProfile(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String token = request.getParameter("token");
+        int id = tokenService.queryIdByToken(token);
+
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        User user = userService.selectByPrimaryKey(userId);
+        UserItem userItem = new UserItem();
+        BeanUtils.copyProperties(user, userItem);
+
+        HashMap<Integer, Integer> rantId2Value = new HashMap<>();
+        List<Star> starList = starService.selectByUserId(id);
+        for(Star star:starList){
+            rantId2Value.put(star.getRantId(), star.getStarValue());
+        }
+
+        List<Rant> rantList = rantService.selectByUserId(userId);
+        List<RantItem> rantItemList = new ArrayList<>();
+        for(Rant rant:rantList){
+            RantItem rantItem = new RantItem();
+            BeanUtils.copyProperties(rant, rantItem);
+            String username = userService.selectByPrimaryKey(rant.getUserId()).getUserName();
+            List<Comment> commentList = commentService.selectAllByRantId(rant.getRantId());
+            rantItem.setUserName(username);
+            //如果登录用户对此rant 赞过或者踩过
+            if(rantId2Value.containsKey(rant.getRantId())){
+                int value = rantId2Value.get(rant.getRantId());
+                rantItem.setThumbFlag(value);
+            }
+            else{
+                rantItem.setThumbFlag(0);
+            }
+
+            if(commentList==null) rantItem.setCommentsNum(0);
+            else rantItem.setCommentsNum(commentList.size());
+            rantItemList.add(rantItem);
+        }
+        userItem.setUserRants(rantItemList);
+        if(id==userId) userItem.setMyself(true);
+        else userItem.setMyself(false);
+        int tot=0;
+        for(Rant rant:rantList) tot+=rant.getRantValue();
+        userItem.setUserValue(tot);
+        Gson gson = new Gson();
+        response.getWriter().print(gson.toJson(userItem));
+    }
+
+    @RequestMapping(value = "/editInfo", method = {RequestMethod.POST})
+    public void editInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        String bio = request.getParameter("bio");
+        String location = request.getParameter("location");
+        User user = userService.selectByPrimaryKey(userId);
+        user.setUserBio(bio);
+        user.setUserLocation(location);
+        response.getWriter().print(userService.updateByPrimaryKeySelective(user));
+
+    }
+
 
     @RequestMapping(value = "/setRead",method = RequestMethod.GET)
     public void setRead(HttpServletRequest request, HttpServletResponse response)throws IOException{
