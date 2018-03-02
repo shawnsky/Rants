@@ -1,4 +1,4 @@
-# Rant简易互动社区(服务端+Web端+移动端)
+# 简易社区
 ### 服务端（java）
 使用Spring MVC+Spring+MyBatis框架和MySQL数据库
 ### Web端
