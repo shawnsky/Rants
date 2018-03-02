@@ -27,6 +27,16 @@ public class DetailItem {
     //new
     private String userName;
 
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
+
+    private String userAvatar;
+
     private Integer thumbValue;
 
     private List<CommentItem> commentList;

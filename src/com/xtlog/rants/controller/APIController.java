@@ -1,6 +1,13 @@
 package com.xtlog.rants.controller;
 
-import com.google.gson.Gson;
+
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
 import com.xtlog.rants.pojo.*;
 import com.xtlog.rants.service.*;
 import com.xtlog.rants.wrapper.*;
@@ -9,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -36,12 +46,12 @@ public class APIController {
     @Autowired
     private TokenService tokenService;
 
-    private static final String tem1 = "<html><head><meta charset=\"utf-8\"></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
-    private static final String tem2 = "</pre></body></html>";
 
 
+
+    @ResponseBody
     @RequestMapping(value = "/allRants", method = {RequestMethod.GET})
-    public void allRants(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<RantItem> allRants(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         HashMap<Integer, Integer> rantId2Value = new HashMap<>();
@@ -50,7 +60,6 @@ public class APIController {
             rantId2Value.put(star.getRantId(), star.getStarValue());
         }
 
-        Gson gson = new Gson();
         List<Rant> rantList = rantService.selectAll();
         List<RantItem> rantItemList = new ArrayList<>();
         for(Rant rant:rantList){
@@ -73,18 +82,20 @@ public class APIController {
             rantItemList.add(rantItem);
         }
         Collections.reverse(rantItemList);//新的靠前
-        String json = gson.toJson(rantItemList);
-        response.getWriter().print(json);
+        return rantItemList;
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/rant",method = {RequestMethod.GET})
-    public void rant(HttpServletRequest request, HttpServletResponse response)throws IOException{
+    public DetailItem rant(HttpServletRequest request, HttpServletResponse response)throws IOException{
         int rantId = Integer.valueOf(request.getParameter("rantId"));
         Rant rant = rantService.selectByPrimaryKey(rantId);
         DetailItem detailItem = new DetailItem();
         BeanUtils.copyProperties(rant, detailItem);
-        detailItem.setUserName(userService.selectByPrimaryKey(rant.getUserId()).getUserName());
+        User user = userService.selectByPrimaryKey(rant.getUserId());
+        detailItem.setUserName(user.getUserName());
+        detailItem.setUserAvatar(user.getUserAvatar());
         List<CommentItem> commentItemList =  new ArrayList<>();
         List<Comment> commentList = commentService.selectAllByRantId(rantId);
         for(Comment comment:commentList){
@@ -108,8 +119,7 @@ public class APIController {
                 detailItem.setThumbValue(-1);
             }
         }
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(detailItem));
+        return detailItem;
 
     }
 
@@ -225,8 +235,9 @@ public class APIController {
         rantService.updateByPrimaryKeySelective(rant);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getCmtNotify",method = {RequestMethod.GET})
-    public void getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<CmtNotifyItem> getCmtNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Comment> allComments = commentService.selectAll();
@@ -254,8 +265,7 @@ public class APIController {
 
         //Collections.reverse(cmtNotifyItems);
         //这里返回的就是从近到远的顺序， 不知道为什么。
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(cmtNotifyItems));
+        return cmtNotifyItems;
 
     }
 
@@ -289,8 +299,9 @@ public class APIController {
         response.getWriter().print(cmtNotifyItems.size());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getStarNotify",method = {RequestMethod.GET})
-    public void getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public List<StarNotifyItem> getStarNotify(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Star> allStar = starService.selectAll();
@@ -317,8 +328,7 @@ public class APIController {
         }
 
 
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(starNotifyItems));
+        return starNotifyItems;
     }
 
 
@@ -373,18 +383,19 @@ public class APIController {
         commentService.insert(comment);
     }
 
+
+    @ResponseBody
     @RequestMapping(value = "/userInfo",method = {RequestMethod.GET})
-    public void userInfo(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public User userInfo(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
-        User user = userService.selectByPrimaryKey(id);
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(user));
+        return userService.selectByPrimaryKey(id);
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/userProfile",method = {RequestMethod.GET})
-    public void userProfile(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public UserItem userProfile(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
 
@@ -426,8 +437,7 @@ public class APIController {
         int tot=0;
         for(Rant rant:rantList) tot+=rant.getRantValue();
         userItem.setUserValue(tot);
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(userItem));
+        return userItem;
     }
 
     @RequestMapping(value = "/editInfo", method = {RequestMethod.POST})
@@ -442,6 +452,32 @@ public class APIController {
 
     }
 
+    @RequestMapping(value = "/getQiniuUploadToken", method = {RequestMethod.GET})
+    public void getQiniuUploadToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        //...生成上传凭证，然后准备上传
+        String accessKey = "AOk-D-W-Dh1JL-gaWoklm5kaWo7FvNoi3rKZOa_i";
+        String secretKey = "PTgPSl9LRS0O2-JHu1FxG9JNVfKOhwaTSNZJy5LL";
+        String bucket = "rantimg";
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
+        response.getWriter().print(upToken);
+    }
+
+    @RequestMapping(value = "/changeAvatar", method = {RequestMethod.POST})
+    public void changeAvatar(HttpServletRequest request){
+        String token = request.getParameter("token");
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int id = tokenService.queryIdByToken(token);
+        String img = request.getParameter("img");
+        if(userId==id){
+            User user = userService.selectByPrimaryKey(userId);
+            user.setUserAvatar(img);
+            userService.updateByPrimaryKeySelective(user);
+        }
+        //批量修改rant头像
+
+    }
 
     @RequestMapping(value = "/setRead",method = RequestMethod.GET)
     public void setRead(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -464,8 +500,16 @@ public class APIController {
         }
     }
 
+    @RequestMapping(value = "/setReadAll",method = RequestMethod.GET)
+    public void setReadAll(HttpServletRequest request, HttpServletResponse response)throws IOException{
+
+    }
+
+
+
+    @ResponseBody
     @RequestMapping(value = "/myRant",method = {RequestMethod.GET})
-    public void myRant(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public List<RantItem> myRant(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Rant> rantList = rantService.selectByUserId(id);
@@ -498,13 +542,12 @@ public class APIController {
         }
 
         Collections.reverse(rantItemList);
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(rantItemList));
-
+        return rantItemList;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/myUp", method = {RequestMethod.GET})
-    public void myUp(HttpServletRequest request, HttpServletResponse response)throws IOException{
+    public List<RantItem> myUp(HttpServletRequest request, HttpServletResponse response)throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Star> starList = starService.selectByUserId(id);
@@ -529,13 +572,13 @@ public class APIController {
         }
 
         Collections.reverse(rantItemList);
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(rantItemList));
+        return rantItemList;
 
     }
 
+    @ResponseBody
     @RequestMapping(value = "/myDown", method = {RequestMethod.GET})
-    public void myDown(HttpServletRequest request, HttpServletResponse response)throws IOException{
+    public List<RantItem> myDown(HttpServletRequest request, HttpServletResponse response)throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Star> starList = starService.selectByUserId(id);
@@ -560,13 +603,12 @@ public class APIController {
         }
 
         Collections.reverse(rantItemList);
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(rantItemList));
+        return rantItemList;
 
     }
 
     @RequestMapping(value = "/myComment", method = {RequestMethod.GET})
-    public void myComment(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public List<CmtNotifyItem> myComment(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String token = request.getParameter("token");
         int id = tokenService.queryIdByToken(token);
         List<Comment> commentList = commentService.selectAllByUserId(id);
@@ -586,8 +628,7 @@ public class APIController {
 
         //Collections.reverse(cmtNotifyItems);
         //这里返回的就是从近到远的顺序， 不知道为什么。
-        Gson gson = new Gson();
-        response.getWriter().print(gson.toJson(cmtNotifyItems));
+        return cmtNotifyItems;
 
     }
 
@@ -631,27 +672,23 @@ public class APIController {
 
 
     // TODO: 2017/5/1 可能需要包装
+    @ResponseBody
     @RequestMapping("/allUsers")
-    public void allUsers(HttpServletResponse response) throws IOException {
-        Gson gson = new Gson();
-        List<User> userList = userService.selectAll();
-        String json = gson.toJson(userList);
-        response.getWriter().print(tem1+json+tem2);
+    public List<User> allUsers(HttpServletResponse response) throws IOException {
+        return userService.selectAll();
     }
 
     // TODO: 2017/5/1 可能需要包装
+    @ResponseBody
     @RequestMapping("/rant")
-    public void rant(HttpServletResponse response, Integer userId) throws IOException {
-        Gson gson = new Gson();
-        List<Rant> rantList = rantService.selectByUserId(userId);
-        String json = gson.toJson(rantList);
-        response.getWriter().print(tem1+json+tem2);
+    public List<Rant> rant(HttpServletResponse response, Integer userId) throws IOException {
+        return rantService.selectByUserId(userId);
     }
 
     // TODO: 2017/5/1 可能需要包装
+    @ResponseBody
     @RequestMapping("/recentHotRants")
-    public void recentHotRants(HttpServletResponse response) throws IOException {
-        Gson gson = new Gson();
+    public List<Rant> recentHotRants(HttpServletResponse response) throws IOException {
         List<Rant> rantList = rantService.selectAll();
         //近期热门主题
         Date now = new Date();
@@ -665,14 +702,14 @@ public class APIController {
                 recentHotRantList.add(rant);
             }
         }
-        String json = gson.toJson(recentHotRantList);
-        response.getWriter().print(tem1+json+tem2);
+        return recentHotRantList;
     }
 
     // TODO: 2017/5/1 可能需要包装
+    @ResponseBody
     @RequestMapping("/valuableRants")
-    public void valuableRants(HttpServletResponse response) throws IOException {
-        Gson gson = new Gson();
+    public List<Rant> valuableRants(HttpServletResponse response) throws IOException {
+
         List<Rant> rantList = rantService.selectAll();
         //精华主题
         List<Rant> starRantList = new ArrayList<>();
@@ -682,8 +719,7 @@ public class APIController {
                 starRantList.add(rant);
             }
         }
-        String json = gson.toJson(starRantList);
-        response.getWriter().print(tem1+json+tem2);
+        return starRantList;
     }
 
 
